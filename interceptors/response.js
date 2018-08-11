@@ -4,10 +4,6 @@
  * MIT Licensed
  */
 
-const stringify = (data) => {
-    return (typeof data === 'object') ? JSON.stringify(data) : data;
-};
-
 const response = (req, res) => {
     let send = res.end;
 
@@ -17,8 +13,11 @@ const response = (req, res) => {
     }
 
     res.json = res.send = res.end = (data) => {
-        res.setHeader('Content-Type', 'application/json');
-        send.call(res, stringify(data));
+        if (typeof data === 'object') {
+            res.setHeader('Content-Type', 'application/json');
+            data = JSON.stringify(data);
+        }
+        send.call(res, data);
     }
 };
 

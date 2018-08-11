@@ -19,7 +19,7 @@ const params = (path, keys, pattern) => {
     let params = {};
     let matches = pattern.exec(path);
     keys.forEach((key, i) => {
-        params[key] = matches[i] || '';
+        params[key] = matches[i].substring(1) || '';
     });
     return params;
 };
