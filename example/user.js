@@ -1,9 +1,11 @@
-const {router} = require('./../main');
+const { app, router } = require('./../main');
 
+// kind of middlewar for all /user requests
 router.all('/user', (req, res) => {
-    console.log('User Middleware.......')
+    return new Promise(resolve => setTimeout(resolve, 100));
 });
 
 router.get('/user', (req, res) => {
-    res.send({user: 1});
+    console.log('----> ', app.get('a'));
+    res.send({ user: 1 });
 });

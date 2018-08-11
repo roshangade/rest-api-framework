@@ -18,8 +18,9 @@ const URL = () => {
 const params = (path, keys, pattern) => {
     let params = {};
     let matches = pattern.exec(path);
+    matches.shift();
     keys.forEach((key, i) => {
-        params[key] = matches[i].substring(1) || '';
+        if(matches[i]) params[key] = matches[i] || '';
     });
     return params;
 };
