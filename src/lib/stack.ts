@@ -3,10 +3,12 @@
  * Copyright(c) 2018 Roshan Gade
  * MIT Licensed
  */
-const stack = {
+import {Stack} from './../utils/types';
+
+const stack: Stack = {
     interceptors: [],
     routes: [],
     exceptions: []
 };
 
-module.exports = stack;
+export default stack;

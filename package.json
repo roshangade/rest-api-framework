@@ -1,11 +1,34 @@
 {
-  "name": "resteasy",
-  "version": "0.0.1-alpha.1",
+  "name": "rest-api-framework",
+  "version": "0.0.1-alpha.2",
   "description": "Framework for building REST API",
-  "main": "app.js",
+  "main": "target/main.js",
+  "types": "target/@types/main.d.ts",
   "scripts": {
+    "build": "./node_modules/.bin/tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Roshan Gade <roshangade@gmail.com>",
-  "license": "MIT"
+  "homepage": "https://github.com/roshangade/rest-api-framework",
+  "keywords": [
+    "rest-api",
+    "rest-api-framework",
+    "json-api",
+    "promise",
+    "promise-api",
+    "framework",
+    "javascript",
+    "delayed-job"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roshangade/rest-api-framework.git"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^3.0.1",
+    "typings": "^2.1.1",
+    "@types/node": "^10.5.8"
+  },
+  "dependencies": {}
 }

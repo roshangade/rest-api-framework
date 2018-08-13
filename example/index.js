@@ -1,4 +1,4 @@
-const { app, router, server } = require('./../main');
+const { app, router, server } = require('./../target/main');
 require('./user');
 
 app.set('a', 1);
@@ -6,11 +6,13 @@ app.set('a', 1);
 // ------------------ Middleware ---------------------
 router.use((req, res) => {
     // middleware --> for async return Promise
+    req.set('x', Date.now());
     return new Promise(resolve => setTimeout(resolve, 100));
 });
 
 // ----------------- Simple Route --------------------
 router.get('/', (req, res) => {
+    console.log('====>', req.get('x'));
     res.send({test: 1});
 });
 
@@ -41,6 +43,7 @@ router.error('NOT_AUTHORIZED', (err, req, res) => {
 
 // ------------------ Uncaught Errors / User thrown errors -------------
 router.error((err, req, res) => {
+    console.log('error', err)
     // common error handler
     res.status(500).send({ message: err.message });
 });

@@ -1,4 +1,4 @@
-const { app, router } = require('./../main');
+const {router, app} = require('./../target/main');
 
 // kind of middlewar for all /user requests
 router.all('/user', (req, res) => {

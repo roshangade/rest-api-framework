@@ -3,10 +3,14 @@
  * Copyright(c) 2018 Roshan Gade
  * MIT Licensed
  */
-const stack = require('./stack');
-const { url } = require('./../utils');
+import { Request, Response } from './../utils/types';
+import stack from './stack';
+import url from './../utils/url';
 
-const interceptors = async (req, res) => {
+/**
+ * Run middlewares
+ */
+const interceptors = async (req: Request, res: Response) => {
     try {
         let interceptors = stack.interceptors || [];
         for (let i = 0, count = interceptors.length; i < count; i++) {
@@ -20,7 +24,10 @@ const interceptors = async (req, res) => {
     return Promise.resolve();
 };
 
-const routers = async (req, res) => {
+/**
+ * Check routes and run matched routes
+ */
+const routers = async (req: Request, res: Response) => {
     try {
         let routes = stack.routes || [];
         for (let i = 0, count = routes.length; i < count; i++) {
@@ -28,7 +35,7 @@ const routers = async (req, res) => {
             let route = routes[i];
             // check method and test url pattern
             if ((route.method === req.method || route.method === 'ALL') && route.pattern.test(req._url.pathname)) {
-                (route.keys) && (req.params = url.params(req._url.pathname, route.keys, route.pattern));
+                (route.keys) && (req._params = url.params(req._url.pathname, route.keys, route.pattern));
                 await route.task(req, res);
             }
         }
@@ -41,7 +48,10 @@ const routers = async (req, res) => {
     return Promise.resolve();
 };
 
-const exceptions = async (err, req, res) => {
+/**
+ * Run if exeption found
+ */
+const exceptions = async (err: Error|any, req: Request, res: Response) => {
     try {
         let exceptions = stack.exceptions || [];
         for (let i = 0, count = exceptions.length; i < count; i++) {
@@ -59,7 +69,10 @@ const exceptions = async (err, req, res) => {
     if (!res.finished) return Promise.reject(err);
 };
 
-const handler = (req, res) => {
+/**
+ * Promise - Request handler
+ */
+const handler = (req: Request, res: Response) => {
     return Promise.resolve()
         .then(() => {
             return interceptors(req, res);
@@ -83,4 +96,4 @@ const handler = (req, res) => {
         });
 };
 
-module.exports = handler;
+export default handler;

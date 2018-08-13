@@ -3,22 +3,26 @@
  * Copyright(c) 2018 Roshan Gade
  * MIT Licensed
  */
+import { Request, Response } from './../types';
 
-const response = (req, res) => {
-    let send = res.end;
+/**
+ * Response Handlers
+ */
+const responseHandler = (req: Request, res: Response) => {
+    let send: Function = res.end;
 
-    res.status = (code) => {
+    res.status = (code: number) => {
         res.statusCode = code;
         return res;
-    }
+    };
 
-    res.json = res.send = res.end = (data) => {
+    res.send = res.end = (data: object | string) => {
         if (typeof data === 'object') {
             res.setHeader('Content-Type', 'application/json');
             data = JSON.stringify(data);
         }
         send.call(res, data);
-    }
+    };
 };
 
-module.exports = response;
+export default responseHandler;

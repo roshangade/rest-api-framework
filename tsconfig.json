@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ES2018",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "declarationDir": "target/@types",
+    "noResolve": true,
+    "declaration": true,
+    "sourceMap": false,
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "pretty": false,
+    "baseUrl": "./",
+    "outDir": "target",
+    "paths": {
+      "node": ["./node_modules/@types"]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts"
+  ]
+}
