@@ -1,19 +1,28 @@
 {
   "compilerOptions": {
     "target": "ES2018",
+    "lib": [
+      "es2015",
+      "es2016",
+      "es2017",
+      "es2018"
+    ],
     "module": "commonjs",
     "esModuleInterop": true,
+    "importHelpers": false,
+    "allowSyntheticDefaultImports": true,
     "declarationDir": "target/@types",
-    "noResolve": true,
     "declaration": true,
     "sourceMap": false,
     "noImplicitAny": true,
     "moduleResolution": "node",
-    "pretty": false,
+    "pretty": true,
     "baseUrl": "./",
     "outDir": "target",
     "paths": {
-      "node": ["./node_modules/@types"]
+      "node": [
+        "./node_modules/@types"
+      ]
     }
   },
   "include": [

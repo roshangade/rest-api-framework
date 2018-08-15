@@ -12,17 +12,15 @@ const url_1 = __importDefault(require("./../url"));
 /**
  * Parse URL and Query
  */
-const requestHandler = (req) => {
-    req._method = req.method.toUpperCase();
-    req._url = url_1.default.parse(req.url);
-    req._query = url_1.default.query(String(req._url.query));
-    req._params = {};
+const _request = (req, res) => {
+    req._url = url_1.default.parseUrl(req.url);
+    req.query = url_1.default.parseQuery(String(req._url.query));
+    req.params = {};
+    // Data Carrier
     req._data = {};
-    // set data
     req.set = (key, value) => {
         req._data[key] = value;
     };
-    // get data
     req.get = (key) => req._data[key];
 };
-exports.default = requestHandler;
+exports.default = _request;

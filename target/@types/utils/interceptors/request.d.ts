@@ -1,6 +1,6 @@
-import { Request } from './../types';
+import { Request, Response } from './../types';
 /**
  * Parse URL and Query
  */
-declare const requestHandler: (req: Request) => void;
-export default requestHandler;
+declare const _request: (req: Request, res: Response) => void;
+export default _request;

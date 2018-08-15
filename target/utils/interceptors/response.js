@@ -3,13 +3,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Response Handlers
  */
-const responseHandler = (req, res) => {
+const _response = (req, res) => {
     let send = res.end;
     res.status = (code) => {
         res.statusCode = code;
         return res;
     };
-    res.send = res.end = (data) => {
+    res.json = res.send = (data) => {
         if (typeof data === 'object') {
             res.setHeader('Content-Type', 'application/json');
             data = JSON.stringify(data);
@@ -17,4 +17,4 @@ const responseHandler = (req, res) => {
         send.call(res, data);
     };
 };
-exports.default = responseHandler;
+exports.default = _response;

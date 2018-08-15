@@ -3,15 +3,15 @@
  * Copyright(c) 2018 Roshan Gade
  * MIT Licensed
  */
-import { Request, Response } from './../utils/types';
 import http from 'http';
-import handler from './handler';
+import { Server, Request, Response } from './../utils/types';
+import handler from './request-handler';
 
 /**
  * Create sesrver
  */
-const server = http.createServer((req: Request, res: Response) => {
-    return handler(req, res)
+const server: Server = http.createServer((req: Request, res: Response): void => {
+    handler.execute(req, res);
 });
 
-export default server;
+export = server;

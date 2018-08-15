@@ -18,11 +18,10 @@ export interface RouteMatcher {
     keys?: string[];
 }
 export interface Request extends Http.ServerRequest {
-    _method: string;
-    _body: any;
+    body: any;
     _url: UrlObject;
-    _query: ParsedUrlQuery;
-    _params: UrlParams;
+    query: ParsedUrlQuery;
+    params: UrlParams;
     _data: {
         [key: string]: any;
     };
@@ -35,18 +34,23 @@ export interface Response extends Http.ServerResponse {
     json: Function;
 }
 export interface Stack {
-    interceptors: {
-        task: Function;
-    }[];
-    routes: {
-        method: string;
-        path: string;
-        pattern: RegExp;
-        keys?: string[];
-        task: Function;
-    }[];
-    exceptions: {
-        code?: string;
-        task: Function;
-    }[];
+    middlewares: Middleware[];
+    routes: Route[];
+    exceptions: Exception[];
+}
+export interface Middleware {
+    task: Function;
+}
+export interface Route {
+    method: string;
+    path: string;
+    pattern: RegExp;
+    keys?: string[];
+    task: Function;
+}
+export interface Exception {
+    code?: string;
+    task: Function;
+}
+export interface Server extends Http.Server {
 }

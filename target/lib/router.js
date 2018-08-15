@@ -7,45 +7,45 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
  * Copyright(c) 2018 Roshan Gade
  * MIT Licensed
  */
-const stack_1 = __importDefault(require("./stack"));
 const url_1 = __importDefault(require("./../utils/url"));
-const METHODS = ['ALL', 'GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'HEAD'];
+const stack_1 = __importDefault(require("./stack"));
 /**
- * Middleares
+ * Router
  */
-const use = (task) => {
-    stack_1.default.interceptors.push({ task });
-};
-/**
- * Routers
- */
-const _router = {};
-METHODS.forEach((method) => {
-    _router[method.toLowerCase()] = (path, task) => {
-        stack_1.default.routes.push(Object.assign({ method,
-            path }, url_1.default.compile(path), { task }));
-    };
-});
-/**
- * Error handlers
- */
-const error = (code, task) => {
-    let handle;
-    if (typeof code === 'function') {
-        handle = {
-            task: code
-        };
+class Router {
+    constructor() {
+        this.METHODS = ['ALL', 'GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'HEAD'];
     }
-    else {
-        handle = {
-            code,
-            task
-        };
+    use(task) {
+        stack_1.default.registerMiddleware({ task });
     }
-    stack_1.default.exceptions.push(handle);
-};
-/**
- * Expose
- */
-const a = Object.assign({ use }, _router, { error });
-module.exports = a;
+    static _route(method, path, task) {
+        stack_1.default.registerRoute(Object.assign({ method: 'ALL', path }, url_1.default.compile(path), { task }));
+    }
+    all(path, task) {
+        Router._route('ALL', path, task);
+    }
+    get(path, task) {
+        Router._route('GET', path, task);
+    }
+    post(path, task) {
+        Router._route('POST', path, task);
+    }
+    put(path, task) {
+        Router._route('PUT', path, task);
+    }
+    delete(path, task) {
+        Router._route('DELETE', path, task);
+    }
+    options(path, task) {
+        Router._route('OPTIONS', path, task);
+    }
+    head(path, task) {
+        Router._route('HEAD', path, task);
+    }
+    error(code, task) {
+        let handle = (typeof code === 'function') ? { task: code } : { code, task };
+        stack_1.default.registerException(handle);
+    }
+}
+module.exports = new Router();

@@ -7,5 +7,5 @@ import { Request, Response } from './../types';
 /**
  * Response Handlers
  */
-declare const responseHandler: (req: Request, res: Response) => void;
-export default responseHandler;
+declare const _response: (req: Request, res: Response) => void;
+export default _response;

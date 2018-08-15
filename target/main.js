@@ -7,14 +7,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
  * Copyright(c) 2018 Roshan Gade
  * MIT Licensed
  */
-const app_1 = __importDefault(require("./lib/app"));
+const application_1 = __importDefault(require("./lib/application"));
 const router_1 = __importDefault(require("./lib/router"));
 const server_1 = __importDefault(require("./lib/server"));
-const rest = () => {
-    return Object.assign({
-        app: app_1.default,
-        router: router_1.default,
-        server: server_1.default
-    });
-};
-module.exports = rest();
+class API {
+    constructor() {
+        this._app = application_1.default;
+        this._router = router_1.default;
+        this._server = server_1.default;
+    }
+    get app() {
+        return this._app;
+    }
+    get router() {
+        return this._router;
+    }
+    get server() {
+        return this._server;
+    }
+}
+module.exports = new API();

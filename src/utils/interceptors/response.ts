@@ -8,7 +8,7 @@ import { Request, Response } from './../types';
 /**
  * Response Handlers
  */
-const responseHandler = (req: Request, res: Response) => {
+const _response = (req: Request, res: Response) => {
     let send: Function = res.end;
 
     res.status = (code: number) => {
@@ -16,7 +16,7 @@ const responseHandler = (req: Request, res: Response) => {
         return res;
     };
 
-    res.send = res.end = (data: object | string) => {
+    res.json = res.send = (data: object | string) => {
         if (typeof data === 'object') {
             res.setHeader('Content-Type', 'application/json');
             data = JSON.stringify(data);
@@ -25,4 +25,4 @@ const responseHandler = (req: Request, res: Response) => {
     };
 };
 
-export default responseHandler;
+export default _response;

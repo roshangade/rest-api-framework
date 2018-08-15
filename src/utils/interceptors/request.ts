@@ -4,25 +4,22 @@
  * MIT Licensed
  */
 import url from './../url';
-import { Request } from './../types';
+import { Request, Response } from './../types';
 
 /**
  * Parse URL and Query
  */
-const requestHandler = (req: Request) => {
-    req._method = req.method.toUpperCase();
-    req._url = url.parse(req.url);
-    req._query = url.query(String(req._url.query));
-    req._params = {};
+const _request = (req: Request, res: Response) => {
+    req._url = url.parseUrl(req.url);
+    req.query = url.parseQuery(String(req._url.query));
+    req.params = {};
 
+    // Data Carrier
     req._data = {};
-    // set data
     req.set = (key: string, value: any) => {
         req._data[key] = value;
     };
-
-    // get data
     req.get = (key: string) => req._data[key];
 };
 
-export default requestHandler;
+export default _request;

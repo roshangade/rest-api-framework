@@ -3,59 +3,61 @@
  * Copyright(c) 2018 Roshan Gade
  * MIT Licensed
  */
-import stack from './stack';
 import url from './../utils/url';
-
-const METHODS = ['ALL', 'GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'HEAD'];
-
-/**
- * Middleares
- */
-const use = (task: Function) => {
-    stack.interceptors.push({ task });
-};
+import stack from './stack';
 
 /**
- * Routers
+ * Router
  */
-const _router: { [key: string]: Function } = {};
-METHODS.forEach((method: string) => {
-    _router[method.toLowerCase()] = (path: string, task: Function) => {
-        stack.routes.push({
-            method,
+class Router {
+    private METHODS: string[] = ['ALL', 'GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'HEAD'];
+
+    use(task: Function) {
+        stack.registerMiddleware({ task });
+    }
+
+    private static _route(method: string, path: string, task: Function) {
+        stack.registerRoute({
+            method: 'ALL',
             path,
             ...url.compile(path),
             task
         });
     }
-});
 
-/**
- * Error handlers
- */
-const error = (code: string | Function, task?: Function) => {
-    let handle;
-    if (typeof code === 'function') {
-        handle = {
-            task: code
-        }
-    } else {
-        handle = {
-            code,
-            task
-        }
+    all(path: string, task: Function) {
+        Router._route('ALL', path, task);
     }
 
-    stack.exceptions.push(handle);
+    get(path: string, task: Function) {
+        Router._route('GET', path, task);
+    }
+
+    post(path: string, task: Function) {
+        Router._route('POST', path, task);
+    }
+
+    put(path: string, task: Function) {
+        Router._route('PUT', path, task);
+    }
+
+    delete(path: string, task: Function) {
+        Router._route('DELETE', path, task);
+    }
+
+    options(path: string, task: Function) {
+        Router._route('OPTIONS', path, task);
+    }
+
+    head(path: string, task: Function) {
+        Router._route('HEAD', path, task);
+    }
+
+    error(code: string | Function, task?: Function) {
+        let handle = (typeof code === 'function') ? { task: code } : { code, task }
+        stack.registerException(handle);
+    }
+
 }
 
-/**
- * Expose
- */
-const a = {
-    use,
-    ..._router,
-    error
-};
-
-export = a;
+export = new Router();

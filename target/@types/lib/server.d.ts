@@ -1,7 +1,6 @@
-/// <reference types="node" />
-import http from 'http';
+import { Server } from './../utils/types';
 /**
  * Create sesrver
  */
-declare const server: http.Server;
-export default server;
+declare const server: Server;
+export = server;
