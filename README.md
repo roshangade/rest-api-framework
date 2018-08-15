@@ -1,6 +1,12 @@
 # Introduction
 Simple REST API framework for Node.js
 
+# Highlights
+- No need to set app as global variable or export
+- No need to use deprecated domain-context for error handler
+- Extend server for more use
+- Load config in app
+
 # How to use
 ```
 const { app, route, server } = require('rest-api-framework');
@@ -40,7 +46,7 @@ route.get('/page/:page/:limit?', (req, res) => {
     res.send(req.params);
 });
 ```
-:page - (:) required url parameter \n
+:page - (:) required url parameter
 :limit? - (:?) optional url paramater
 
 ## Extended Route
