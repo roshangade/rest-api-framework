@@ -10,7 +10,9 @@ import handler from './request-handler';
 /**
  * Create sesrver
  */
-const server: Server = http.createServer((req: Request, res: Response): void => {
+const server: Server = http.createServer();
+
+server.on('request', (req: Request, res: Response): void => {
     handler.execute(req, res);
 });
 

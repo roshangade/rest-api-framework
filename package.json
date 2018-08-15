@@ -6,6 +6,7 @@
   "types": "target/@types/main.d.ts",
   "scripts": {
     "build": "./node_modules/.bin/tsc",
+    "watch": "./node_modules/.bin/tsc --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Roshan Gade <roshangade@gmail.com>",
@@ -29,6 +30,5 @@
     "@types/node": "^10.5.8",
     "typescript": "^3.0.1",
     "typings": "^2.1.1"
-  },
-  "dependencies": {}
+  }
 }

@@ -3,15 +3,27 @@ Simple REST API framework for Node.js
 
 # How to use
 ```
-const { app, router, server } = require('rest-api-framework');
+const { app, route, server } = require('rest-api-framework');
 // app for configuration
-app.set('a', 1);
-app.get('a');
+app.set('test', 1);
+app.get('test'); // 1
+
+app.set('config', {
+    'a': 1,
+    'b': {
+        'c': 3
+    }
+});
+
+app.get('config:a'); // 1
+app.get('config:b'); // {'c': 3}
+app.get('config:b:c'); // 3
+
 ```
 
 ### Register middlewares
 ```
-router.use((req, res) => {
+route.use((req, res) => {
     // set data
     req.set('test', 'simple');
     // for async return Promise
@@ -20,33 +32,52 @@ router.use((req, res) => {
 ```
 ### Route
 ```
-router.get('/', (req, res) => {
+route.get('/', (req, res) => {
     res.send({test: 1});
 });
 
-router.get('/page/:page/:limit?', (req, res) => {
+route.get('/page/:page/:limit?', (req, res) => {
     res.send(req.params);
 });
 ```
-:page - (:) required url parameter
+:page - (:) required url parameter \n
 :limit? - (:?) optional url paramater
+
+## Extended Route
+```
+let test = route.for('/test');
+
+test.use((req, res) => {
+    // middleware for /test and /test/*
+})
+
+test.get('/', (req, res) => {
+    // route for /test
+    res.send('test');
+});
+
+test.post('/:uid', (req, res) => {
+    // route for /test/1 OR /test/abc OR etc.
+    res.send('test');
+});
+```
 
 ### Error Handler
 ```
-router.get('/error', (req, res) => {
+route.get('/error', (req, res) => {
     // throw custom error and set code
     return Promise.reject({ code: 'NOT_AUTHORIZED' })
 });
 
 //Catch error
-router.error('NOT_AUTHORIZED', (err, req, res) => {
+route.error('NOT_AUTHORIZED', (err, req, res) => {
     res.status(401).send({ message: 'You are not authorized.',  });
 });
 ```
 
 ### Uncaught Errors
 ```
-router.error((err, req, res) => {
+route.error((err, req, res) => {
     // common error handler
     res.status(500).send({ message: "Internal Server Error" });
 });

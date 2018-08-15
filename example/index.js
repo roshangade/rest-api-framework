@@ -11,11 +11,23 @@ test.get('/', (req, res) => {
     res.send('test');
 });
 
-test.get('/1', (req, res) => {
+test.post('/1', (req, res) => {
+    console.log('==>', req.body, typeof req.body);
     res.send('test1');
 });
 
-app.set('a', 1);
+app.set('config', {
+    'a': 1,
+    'b': {
+        'c': 3
+    }
+});
+
+console.log('==> ', app.get('config'));
+console.log('==> ', app.get('config:a'));
+console.log('==> ', app.get('config:b'));
+console.log('==> ', app.get('config:b:c'));
+
 
 // ------------------ Middleware ---------------------
 route.use((req, res) => {

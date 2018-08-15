@@ -12,7 +12,8 @@ const request_handler_1 = __importDefault(require("./request-handler"));
 /**
  * Create sesrver
  */
-const server = http_1.default.createServer((req, res) => {
+const server = http_1.default.createServer();
+server.on('request', (req, res) => {
     request_handler_1.default.execute(req, res);
 });
 module.exports = server;

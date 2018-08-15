@@ -18,7 +18,11 @@ class Application {
     }
     ;
     get(key) {
-        return this.config[key];
+        try {
+            return key.split(':').reduce((val, key) => val[key], this.config);
+        }
+        catch (e) { }
+        return undefined;
     }
 }
 module.exports = new Application();
