@@ -19,12 +19,10 @@ class Router {
             path }, url_1.default.compile(path), { task }));
     }
     all(path, task) {
-        console.log('============> ', this.prefix + path);
         Router._route('ALL', this.prefix + path, task);
     }
     get(path, task) {
         Router._route('GET', this.prefix + path, task);
-        //console.log('=============>', stack.routes)
     }
     post(path, task) {
         Router._route('POST', this.prefix + path, task);

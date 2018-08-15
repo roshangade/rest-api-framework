@@ -24,13 +24,11 @@ export class Router {
     }
 
     all(path: string, task: Function) {
-        console.log('============> ', this.prefix + path)
         Router._route('ALL', this.prefix + path, task);
     }
 
     get(path: string, task: Function) {
         Router._route('GET', this.prefix + path, task);
-        //console.log('=============>', stack.routes)
     }
 
     post(path: string, task: Function) {
