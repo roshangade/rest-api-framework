@@ -7,6 +7,9 @@ import app from './lib/application';
 import route from './lib/route';
 import server from './lib/server';
 
+/**
+ * API Exposer
+ */
 class API {
     private _app: object;
     private _route: object;

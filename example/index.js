@@ -1,5 +1,11 @@
+const bodyParser = require('body-parser');
+const util = require('util');
 const { app, route, server } = require('./../target/main');
 require('./user');
+
+route.use(util.promisify(bodyParser.json()));
+route.use(util.promisify(bodyParser.urlencoded({extended: true})));
+
 
 let test = route.for('/test/');
 
@@ -22,11 +28,6 @@ app.set('config', {
         'c': 3
     }
 });
-
-console.log('==> ', app.get('config'));
-console.log('==> ', app.get('config:a'));
-console.log('==> ', app.get('config:b'));
-console.log('==> ', app.get('config:b:c'));
 
 
 // ------------------ Middleware ---------------------

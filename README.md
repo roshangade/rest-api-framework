@@ -68,6 +68,16 @@ test.post('/:uid', (req, res) => {
 });
 ```
 
+## How to use other middlewares
+For example: Body parser
+```
+const bodyParser = require('body-parser');
+const util = require('util');
+
+route.use(util.promisify(bodyParser.json()));
+route.use(util.promisify(bodyParser.urlencoded({extended: true})));
+```
+
 ### Error Handler
 ```
 route.get('/error', (req, res) => {

@@ -1,3 +1,6 @@
+/**
+ * API Exposer
+ */
 declare class API {
     private _app;
     private _route;

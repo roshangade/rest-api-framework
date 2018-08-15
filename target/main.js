@@ -10,6 +10,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 const application_1 = __importDefault(require("./lib/application"));
 const route_1 = __importDefault(require("./lib/route"));
 const server_1 = __importDefault(require("./lib/server"));
+/**
+ * API Exposer
+ */
 class API {
     constructor() {
         this._app = application_1.default;
