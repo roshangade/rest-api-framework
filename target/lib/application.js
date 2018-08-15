@@ -2,16 +2,16 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-const interceptors_1 = __importDefault(require("./../utils/interceptors"));
-const router_1 = __importDefault(require("./router"));
+const interceptors_1 = __importDefault(require("../utils/interceptors"));
+const route_1 = __importDefault(require("./route"));
 /**
  * Application
  */
 class Application {
     constructor() {
         this.config = {};
-        router_1.default.use(interceptors_1.default.request);
-        router_1.default.use(interceptors_1.default.response);
+        route_1.default.use(interceptors_1.default.request);
+        route_1.default.use(interceptors_1.default.response);
     }
     set(key, value) {
         this.config[key] = value;

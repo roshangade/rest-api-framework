@@ -1,4 +1,4 @@
-import { Request, Response } from './../types';
+import { Request, Response } from '../types';
 /**
  * Parse URL and Query
  */

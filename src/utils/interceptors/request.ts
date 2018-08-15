@@ -3,8 +3,8 @@
  * Copyright(c) 2018 Roshan Gade
  * MIT Licensed
  */
-import url from './../url';
-import { Request, Response } from './../types';
+import url from '../url';
+import { Request, Response } from '../types';
 
 /**
  * Parse URL and Query

@@ -3,8 +3,8 @@
  * Copyright(c) 2018 Roshan Gade
  * MIT Licensed
  */
-import { Request, Response, Middleware, Route, Exception } from './../utils/types';
-import url from './../utils/url';
+import { Request, Response, Middleware, Route, Exception } from '../utils/types';
+import url from '../utils/url';
 import stack from './stack';
 
 /**
@@ -53,9 +53,9 @@ class RequestHandler {
                     await exception.task(err, req, res);
                 }
             }
-            if (!res.finished) throw { code: 'UNCAUGHT_ERROR', error: err };
+            if (!res.finished) throw { code: err.code || 'UNCAUGHT_ERROR', error: err.error || err };
         } catch (err) {
-            return Promise.reject({ code: 'INTERNAL_SERVER_ERROR', error: err });
+            return Promise.reject({ code: err.code || 'INTERNAL_SERVER_ERROR', error: err.error || err });
         }
     }
 

@@ -4,17 +4,17 @@
  * MIT Licensed
  */
 import app from './lib/application';
-import router from './lib/router';
+import route from './lib/route';
 import server from './lib/server';
 
 class API {
     private _app: object;
-    private _router: object;
+    private _route: object;
     private _server: object;
 
     constructor() {
         this._app = app;
-        this._router = router;
+        this._route = route;
         this._server = server;
     }
 
@@ -22,8 +22,8 @@ class API {
         return this._app;
     }
 
-    get router() {
-        return this._router;
+    get route() {
+        return this._route;
     }
 
     get server() {

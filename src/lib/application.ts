@@ -3,9 +3,9 @@
  * Copyright(c) 2018 Roshan Gade
  * MIT Licensed
  */
-import { Config } from './../utils/types';
-import interceptors from './../utils/interceptors';
-import router from './router';
+import { Config } from '../utils/types';
+import interceptors from '../utils/interceptors';
+import route from './route';
 
 /**
  * Application
@@ -15,8 +15,8 @@ class Application {
     private config: Config = {};
 
     constructor() {
-        router.use(interceptors.request);
-        router.use(interceptors.response);
+        route.use(interceptors.request);
+        route.use(interceptors.response);
     }
 
     set(key: string, value: any) {

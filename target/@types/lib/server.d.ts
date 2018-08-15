@@ -1,4 +1,4 @@
-import { Server } from './../utils/types';
+import { Server } from '../utils/types';
 /**
  * Create sesrver
  */

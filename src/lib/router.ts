@@ -3,22 +3,20 @@
  * Copyright(c) 2018 Roshan Gade
  * MIT Licensed
  */
-import url from './../utils/url';
 import stack from './stack';
+import url from '../utils/url';
 
-/**
- * Router
- */
-class Router {
-    private METHODS: string[] = ['ALL', 'GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'HEAD'];
+export class Router {
 
-    use(task: Function) {
-        stack.registerMiddleware({ task });
+    protected prefix: string;
+
+    constructor(prefix: string) {
+        this.prefix = prefix || '';
     }
 
     private static _route(method: string, path: string, task: Function) {
         stack.registerRoute({
-            method: 'ALL',
+            method,
             path,
             ...url.compile(path),
             task
@@ -26,38 +24,28 @@ class Router {
     }
 
     all(path: string, task: Function) {
-        Router._route('ALL', path, task);
+        console.log('============> ', this.prefix + path)
+        Router._route('ALL', this.prefix + path, task);
     }
 
     get(path: string, task: Function) {
-        Router._route('GET', path, task);
+        Router._route('GET', this.prefix + path, task);
+        //console.log('=============>', stack.routes)
     }
 
     post(path: string, task: Function) {
-        Router._route('POST', path, task);
+        Router._route('POST', this.prefix + path, task);
     }
 
     put(path: string, task: Function) {
-        Router._route('PUT', path, task);
+        Router._route('PUT', this.prefix + path, task);
     }
 
     delete(path: string, task: Function) {
-        Router._route('DELETE', path, task);
+        Router._route('DELETE', this.prefix + path, task);
     }
 
     options(path: string, task: Function) {
-        Router._route('OPTIONS', path, task);
+        Router._route('OPTIONS', this.prefix + path, task);
     }
-
-    head(path: string, task: Function) {
-        Router._route('HEAD', path, task);
-    }
-
-    error(code: string | Function, task?: Function) {
-        let handle = (typeof code === 'function') ? { task: code } : { code, task }
-        stack.registerException(handle);
-    }
-
 }
-
-export = new Router();

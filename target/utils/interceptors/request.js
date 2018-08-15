@@ -8,7 +8,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * Copyright(c) 2018 Roshan Gade
  * MIT Licensed
  */
-const url_1 = __importDefault(require("./../url"));
+const url_1 = __importDefault(require("../url"));
 /**
  * Parse URL and Query
  */

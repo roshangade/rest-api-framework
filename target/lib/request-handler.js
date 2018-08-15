@@ -2,7 +2,7 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-const url_1 = __importDefault(require("./../utils/url"));
+const url_1 = __importDefault(require("../utils/url"));
 const stack_1 = __importDefault(require("./stack"));
 /**
  * Request Handler
@@ -55,10 +55,10 @@ class RequestHandler {
                 }
             }
             if (!res.finished)
-                throw { code: 'UNCAUGHT_ERROR', error: err };
+                throw { code: err.code || 'UNCAUGHT_ERROR', error: err.error || err };
         }
         catch (err) {
-            return Promise.reject({ code: 'INTERNAL_SERVER_ERROR', error: err });
+            return Promise.reject({ code: err.code || 'INTERNAL_SERVER_ERROR', error: err.error || err });
         }
     }
     static errorHandler(err, req, res) {

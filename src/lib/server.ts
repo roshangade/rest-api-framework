@@ -4,7 +4,7 @@
  * MIT Licensed
  */
 import http from 'http';
-import { Server, Request, Response } from './../utils/types';
+import { Server, Request, Response } from '../utils/types';
 import handler from './request-handler';
 
 /**

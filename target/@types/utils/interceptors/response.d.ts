@@ -3,7 +3,7 @@
  * Copyright(c) 2018 Roshan Gade
  * MIT Licensed
  */
-import { Request, Response } from './../types';
+import { Request, Response } from '../types';
 /**
  * Response Handlers
  */

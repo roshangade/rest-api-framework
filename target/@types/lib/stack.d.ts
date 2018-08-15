@@ -3,7 +3,7 @@
  * Copyright(c) 2018 Roshan Gade
  * MIT Licensed
  */
-import { Middleware, Route, Exception } from './../utils/types';
+import { Middleware, Route, Exception } from '../utils/types';
 /**
  * Stack
  */
