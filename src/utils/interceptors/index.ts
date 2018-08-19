@@ -5,8 +5,10 @@
  */
 import request from './request';
 import response from './response';
+import bodyParser from './body-parser';
 
 export default {
     request,
-    response
+    response,
+    bodyParser
 }

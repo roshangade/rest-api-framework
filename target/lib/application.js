@@ -12,6 +12,7 @@ class Application {
         this.config = {};
         route_1.default.use(interceptors_1.default.request);
         route_1.default.use(interceptors_1.default.response);
+        route_1.default.use(interceptors_1.default.bodyParser);
     }
     set(key, value) {
         this.config[key] = value;

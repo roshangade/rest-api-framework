@@ -17,6 +17,7 @@ class Application {
     constructor() {
         route.use(interceptors.request);
         route.use(interceptors.response);
+        route.use(interceptors.bodyParser);
     }
 
     set(key: string, value: any): void {

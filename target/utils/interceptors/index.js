@@ -10,7 +10,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 const request_1 = __importDefault(require("./request"));
 const response_1 = __importDefault(require("./response"));
+const body_parser_1 = __importDefault(require("./body-parser"));
 exports.default = {
     request: request_1.default,
-    response: response_1.default
+    response: response_1.default,
+    bodyParser: body_parser_1.default
 };

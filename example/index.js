@@ -1,16 +1,11 @@
-const bodyParser = require('body-parser');
 const util = require('util');
 const { app, route, server } = require('./../target/main');
 require('./user');
 
-route.use(util.promisify(bodyParser.json()));
-route.use(util.promisify(bodyParser.urlencoded({extended: true})));
-
-
 let test = route.for('/test/');
 
 test.use((req, res) => {
-    console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+    //console.log('test middleware')
 })
 
 test.get('/', (req, res) => {
@@ -18,7 +13,7 @@ test.get('/', (req, res) => {
 });
 
 test.post('/1', (req, res) => {
-    console.log('==>', req.body, typeof req.body);
+     console.log(req.body)
     res.send('test1');
 });
 
@@ -39,7 +34,7 @@ route.use((req, res) => {
 
 // ----------------- Simple Route --------------------
 route.get('/', (req, res) => {
-    console.log('====>', req.get('x'));
+    //console.log(req.get('x'));
     res.send({ test: 1 });
 });
 
