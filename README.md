@@ -21,9 +21,9 @@ app.set('config', {
     }
 });
 
-app.get('config:a'); // 1
-app.get('config:b'); // {'c': 3}
-app.get('config:b:c'); // 3
+app.get('config.a'); // 1
+app.get('config.b'); // {'c': 3}
+app.get('config.b.c'); // 3
 
 ```
 

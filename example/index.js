@@ -41,7 +41,7 @@ app.set('config', {
     }
 });
 
-console.log('Config', app.get('config:b:c'))
+console.log('Config', app.get('config.b.c'))
 
 // ------------------ Middleware ---------------------
 route.use((req, res) => {
