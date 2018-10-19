@@ -1,4 +1,4 @@
-const {route, app} = require('./../target/main');
+const {route, app} = require('./../api');
 
 // kind of middlewar for all /user requests
 route.all('/user', (req, res) => {
@@ -6,6 +6,6 @@ route.all('/user', (req, res) => {
 });
 
 route.get('/user', (req, res) => {
-    console.log('----> ', app.get('a'));
+    console.log('----> ', app.get('config:a'));
     res.send({ user: 1 });
 });

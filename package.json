@@ -2,14 +2,11 @@
   "name": "rest-api-framework",
   "version": "0.0.1-alpha.4",
   "description": "Framework for building REST API",
-  "main": "target/main.js",
-  "types": "target/@types/main.d.ts",
+  "main": "api.js",
   "scripts": {
-    "build": "./node_modules/.bin/tsc",
-    "watch": "./node_modules/.bin/tsc --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Roshan Gade <roshangade@gmail.com>",
+  "author": "Roshan Gade <roshangade@hotmail.com>",
   "homepage": "https://github.com/roshangade/rest-api-framework",
   "keywords": [
     "rest-api",
@@ -26,10 +23,6 @@
     "url": "https://github.com/roshangade/rest-api-framework.git"
   },
   "license": "MIT",
-  "devDependencies": {
-    "@types/node": "^10.5.8",
-    "typescript": "^3.0.1",
-    "typings": "^2.1.1"
-  },
+  "devDependencies": {},
   "dependencies": {}
 }

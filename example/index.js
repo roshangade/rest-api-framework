@@ -1,20 +1,37 @@
-const util = require('util');
-const { app, route, server } = require('./../target/main');
+//const util = require('util');
+const { app, route, server } = require('./../api');
 require('./user');
 
-let test = route.for('/test/');
+let foo = route.for('/foo');
 
-test.use((req, res) => {
-    //console.log('test middleware')
+foo.use((req, res) => {
+    console.log('foo middleware')
 })
 
-test.get('/', (req, res) => {
-    res.send('test');
+foo.get('/', (req, res) => {
+    res.send(req.params);
 });
 
-test.post('/1', (req, res) => {
+foo.post('/1', (req, res) => {
      console.log(req.body)
-    res.send('test1');
+    res.send('foo 1');
+});
+
+let _foo = foo.for('/:uid')
+
+let bar = _foo.for('/bar');
+
+bar.use((req, res) => {
+    console.log('bar middleware')
+})
+
+bar.get('/', (req, res) => {
+    res.send(req.params);
+});
+
+bar.post('/1', (req, res) => {
+     console.log(req.body)
+    res.send('bar 1');
 });
 
 app.set('config', {
@@ -24,18 +41,22 @@ app.set('config', {
     }
 });
 
+console.log('Config', app.get('config:b:c'))
 
 // ------------------ Middleware ---------------------
 route.use((req, res) => {
     // middleware --> for async return Promise
-    req.set('x', Date.now());
     return new Promise(resolve => setTimeout(resolve, 100));
+});
+
+route.all('/*', (req, res) => {
+    console.log('alll middlewares....')
 });
 
 // ----------------- Simple Route --------------------
 route.get('/', (req, res) => {
     //console.log(req.get('x'));
-    res.send({ test: 1 });
+    res.send(req.params);
 });
 
 // ----------------- RegEx Route --------------------
@@ -53,7 +74,7 @@ route.get('/error', (req, res) => {
 route.get('/:a', (req, res) => {
     // uncaught error
     a
-    res.send(req.params);
+    res.end(req.params);
 });
 
 // ------------------ Custom Error Handler -------------
@@ -67,7 +88,7 @@ route.error('NOT_AUTHORIZED', (err, req, res) => {
 route.error((err, req, res) => {
     console.log('error', err)
     // common error handler
-    res.status(500).send({ message: err.message });
+    res.send({ message: err.message });
 });
 
 // start server
