@@ -60,5 +60,9 @@ typings/
 # next.js build output
 .next
 
-#package-lock.json
+# package-lock.json
 package-lock.json
+
+# editors
+.idea
+.DS_Store
