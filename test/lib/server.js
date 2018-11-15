@@ -8,18 +8,19 @@
 /**
  * Server
  */
-const http = require('http');
 const { expect } = require('chai');
 const server = require('./../../lib/server');
+const EventEmitter = require('events');
 
 describe('#server', function () {
 
     it('returns server object', function () {
-        
+        expect(server).to.be.an.instanceof(EventEmitter);
     });
 
-    it('should not extensible', function () {
-        
+    it('should have listen property', function () {
+        expect(server).to.have.property('listen');
+        expect(server.listen).to.be.an('function');
     });
 
 });

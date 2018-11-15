@@ -9,8 +9,11 @@
  * REST API Framework
  * Unit test cases
  */
-const { expect } = require('chai');
+const { use, expect } = require('chai');
 const api = require('./../api');
+const spies = require('chai-spies');
+
+use(spies);
 
 describe('REST API Framework', function () {
     describe('#api', function () {
@@ -32,4 +35,6 @@ describe('REST API Framework', function () {
     // lib
     require('./lib/stack');
     require('./lib/server');
+    require('./lib/application');
+    require('./lib/route');
 });
