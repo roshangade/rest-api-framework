@@ -11,6 +11,7 @@
  */
 const { use, expect } = require('chai');
 const api = require('./../api');
+const utils = require('./utils');
 
 
 describe('REST API Framework', function () {

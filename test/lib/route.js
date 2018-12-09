@@ -50,7 +50,7 @@ describe('#route', function () {
         expect(route).to.have.property('post');
         expect(route).to.have.property('put');
         expect(route).to.have.property('delete');
-        expect(route).to.have.property('options'); 
+        expect(route).to.have.property('options');
     });
 
     it('should provide all http methods for every method for a specific route', function () {
@@ -84,13 +84,10 @@ describe('#route', function () {
         expect(stack.routes.length).to.equal(0);
         expect(blog).to.have.property('use');
 
-        blog.use(function(){})
+        let task = function () { };
+        blog.use(task)
         expect(stack.routes.length).to.equal(1);
-        expect(stack.routes[0].method).to.equal('ALL');
-        expect(stack.routes[0].path).to.equal('/blog/*');
-        expect(stack.routes[0].pattern.test('/blog/test')).to.equal(true);
-        expect(stack.routes[0].pattern.test('/blog')).to.equal(true);
-        expect(stack.routes[0].task).to.be.a('function');
+        expect(stack.routes).to.be.deep.equal([{ method: 'ALL', path: '/blog/*', pattern: /^\/blog(.*)\/?$/i, task }]);
 
         try {
             route.for();
@@ -115,11 +112,10 @@ describe('#route', function () {
         route.error(task);
         expect(stack.exceptions.length).to.equal(1);
         expect(stack.exceptions.pop()).to.eql({ task });
-        
+
         route.error('NOT_FOUND', task);
         expect(stack.exceptions.length).to.equal(1);
-        expect(stack.exceptions[0].code).to.equal('NOT_FOUND');
-        expect(stack.exceptions[0].task).to.equal(task);
+        expect(stack.exceptions).to.be.deep.equal([{ code: 'NOT_FOUND', task }]);
 
         try {
             route.error('task');
