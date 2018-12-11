@@ -94,24 +94,3 @@ route.error((err, req, res) => {
 // start server
 server.listen(3000);
 console.log('server started...');
-
-const http = require('http2')
-const client =  http.connect('http://localhost:3000/');
-//module.exports = server;
-
-const req = client.request({ ':path': '/' });
-
-req.on('response', (headers, flags) => {
-  for (const name in headers) {
-    console.log(`${name}: ${headers[name]}`);
-  }
-});
-
-req.setEncoding('utf8');
-let data = '';
-req.on('data', (chunk) => { data += chunk; });
-req.on('end', () => {
-  console.log(`-------->\n${data}`);
-  client.close();
-});
-req.end();
