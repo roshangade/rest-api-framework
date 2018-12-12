@@ -19,14 +19,23 @@ const Url = function () {
     });
 }
 
+/**
+ * Parse URL and returns object
+ */
 const parseUrl = function (...args) {
     return url.parse.apply(null, args);
 };
 
+/**
+ * Parse querystring into object
+ */
 const parseQuery = function (...args) {
     return query.parse.apply(null, args);
 };
 
+/**
+ * Parse URL and get request params
+ */
 const parseParams = function (path, keys, pattern) {
     let params = {};
     let matches = pattern.exec(path);
@@ -37,6 +46,9 @@ const parseParams = function (path, keys, pattern) {
     return params;
 };
 
+/**
+ * Compile router URL and create RegExp for easy use
+ */
 const compile = function (route) {
     let keys = [];
     let pattern = '';
