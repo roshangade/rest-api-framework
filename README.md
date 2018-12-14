@@ -2,41 +2,71 @@
 Simple REST API framework for Node.js
 
 # Highlights
-- No need to set app as global variable or export
+- No need to set app as global variable
+  > Will provide a _route method, route.get, route.use,_ etc.
 - No need to use deprecated domain-context for error handler
+  > Will handle it in Promise
 - Extend server for more use
+  > Use _route.for_ method
 - Load config in app
-
+  > Use _app.set_ and _app.get_ method
+- Zero dependency 
+  > No need to bother about vulnerabilities
+***
 # How to use
 ```
 const { app, route, server } = require('rest-api-framework');
-// app for configuration
-app.set('test', 1);
-app.get('test'); // 1
+
+app.set('foo', 'bar');
+app.get('foo');
+// Output: bar
 
 app.set('config', {
-    'a': 1,
-    'b': {
-        'c': 3
+    'foo': 1,
+    'bar': {
+        'test': 2
     }
 });
 
-app.get('config.a'); // 1
-app.get('config.b'); // {'c': 3}
-app.get('config.b.c'); // 3
+app.get('config.foo'); 
+// Output: 1
+app.get('config.bar.test');
+// Output: 2
 
 ```
 
 ### Register middlewares
+- Instead of callback, we expect Promise in return.
+- If you are doing an asynchronous task then return Promise else no need to return anything
+- Also, you can set and get data in request context using _req.set_ and _req.get_ methods
+
+For asynchronous task:
 ```
 route.use((req, res) => {
     // set data
-    req.set('test', 'simple');
-    // for async return Promise
-    return new Promise(resolve => setTimeout(resolve, 100));
+    req.set('foo', 'bar');
+    
+    // for asynchronous return Promise
+    return new Promise((resolve, reject) => {
+        setTimeout(resolve, 100));
+    });
+    
 });
 ```
+
+For synchronous task:
+```
+route.use((req, res) => {
+    // get data
+    let foo = req.get('foo');
+    
+    // do some sync
+});
+```
+
 ### Route
+- :page - (:) required url parameter (similar to express)
+- :limit? - (:?) optional url paramater
 ```
 route.get('/', (req, res) => {
     res.send({test: 1});
@@ -46,8 +76,6 @@ route.get('/page/:page/:limit?', (req, res) => {
     res.send(req.params);
 });
 ```
-:page - (:) required url parameter
-:limit? - (:?) optional url paramater
 
 ## Extended Route
 ```
@@ -68,30 +96,38 @@ test.post('/:uid', (req, res) => {
 });
 ```
 
-## How to use other middlewares
+## How to use other middlewares?
 For example: Body parser
 ```
-const bodyParser = require('body-parser');
 const util = require('util');
+const bodyParser = require('body-parser');
 
-route.use(util.promisify(bodyParser.json()));
-route.use(util.promisify(bodyParser.urlencoded({extended: true})));
+// can use Node.js's utils module to convert callback function into Promise
+const jsonBodyParser = util.promisify(bodyParser.json());
+const urlEncodedBodyParser = util.promisify(bodyParser.urlencoded({extended: true}))
+
+route.use(jsonBodyParser);
+route.use(urlEncodedBodyParser);
 ```
 
 ### Error Handler
+A new way to handle errors and exceptions
 ```
+// Throwing error
 route.get('/error', (req, res) => {
     // throw custom error and set code
     return Promise.reject({ code: 'NOT_AUTHORIZED' })
 });
 
-//Catch error
+//Catching error
 route.error('NOT_AUTHORIZED', (err, req, res) => {
-    res.status(401).send({ message: 'You are not authorized.',  });
+    // Also, you can use ###err### for error detail
+    res.status(401).send({ message: 'You are not authorized.'});
 });
 ```
 
 ### Uncaught Errors
+Common error handler method for all errors
 ```
 route.error((err, req, res) => {
     // common error handler
