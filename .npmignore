@@ -74,3 +74,6 @@ test
 #ignores
 .gitignore
 .npmignore
+
+#example
+example
