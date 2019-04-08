@@ -67,6 +67,7 @@ package-lock.json
 .idea
 .DS_Store
 .vscode
+_config.yml
 
 #test
 test
