@@ -12,7 +12,6 @@
 const {expect} = require('chai');
 const api = require('./../api');
 
-
 describe('REST API Framework', function () {
     describe('#api', function () {
 
@@ -36,4 +35,5 @@ describe('REST API Framework', function () {
     require('./lib/application');
     require('./lib/route');
     require('./lib/request-handler');
+    require('./utils');
 });
