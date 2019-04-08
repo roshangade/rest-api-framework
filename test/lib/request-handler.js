@@ -8,11 +8,10 @@
 /**
  * Request Handler
  */
-const { expect } = require('chai');
+const {expect} = require('chai');
 const sinon = require("sinon");
 const http = require('node-mocks-http');
 const handler = require('./../../lib/request-handler');
-const stack = require('./../../lib/stack');
 const route = require('./../../lib/route');
 
 describe('#request-handler', function () {
@@ -40,13 +39,17 @@ describe('#request-handler', function () {
         });
         let res = http.createResponse();
 
-        let _middleware = sinon.spy(function (req, res) { });
+        let _middleware = sinon.spy(function (req, res) {
+        });
         route.use(_middleware);
 
-        let _route = sinon.spy(function (req, res) { res.json({test: 1}) });
+        let _route = sinon.spy(function (req, res) {
+            res.json({test: 1})
+        });
         route.get('/greeting', _route);
 
-        let _error = sinon.spy(function(req, res) {});
+        let _error = sinon.spy(function (req, res) {
+        });
         route.error(_error);
 
         handler.execute(req, res)
@@ -69,13 +72,17 @@ describe('#request-handler', function () {
         });
         let res = http.createResponse();
 
-        let _middleware = sinon.spy(function (req, res) { });
+        let _middleware = sinon.spy(function (req, res) {
+        });
         route.use(_middleware);
 
-        let _route = sinon.spy(function (req, res) { throw Error('Uncaught error'); });
+        let _route = sinon.spy(function (req, res) {
+            throw Error('Uncaught error');
+        });
         route.get('/error', _route);
 
-        let _error = sinon.spy(function(req, res) {});
+        let _error = sinon.spy(function (req, res) {
+        });
         route.error(_error);
 
         handler.execute(req, res)

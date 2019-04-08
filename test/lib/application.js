@@ -8,7 +8,7 @@
 /**
  * Application
  */
-const { expect } = require('chai');
+const {expect} = require('chai');
 const app = require('./../../lib/application');
 
 describe('#app', function () {
@@ -43,7 +43,7 @@ describe('#app', function () {
 
         try {
             app.set('a.b.c', 1);
-        } catch(e) {
+        } catch (e) {
             expect(e.message).to.equal('app.set() requires first argument as a string and dot(.) is not allowed');
         }
     });

@@ -8,7 +8,7 @@
 /**
  * URL
  */
-const { expect } = require('chai');
+const {expect} = require('chai');
 const url = require('./../../utils/url');
 
 describe('#url', function () {
@@ -42,18 +42,18 @@ describe('#url', function () {
 
         expect(_query).to.be.an('object');
         expect(_query.foo).to.be.equal('bar');
-        expect(_query.abc).to.be.deep.equal(['xyz','123']);
+        expect(_query.abc).to.be.deep.equal(['xyz', '123']);
     });
 
     it('should provide parseParams method', function () {
         expect(url.parseParams).to.be.a('function');
 
-        let { pattern, keys } = url.compile('/greeting/:id/:page?');
+        let {pattern, keys} = url.compile('/greeting/:id/:page?');
         let _params = url.parseParams('/greeting/user1', keys, pattern);
 
         expect(_params).to.be.an('object');
         expect(_params.id).to.be.equal('user1');
-        expect(_params.page).to.be.undefined;
+        expect(_params.page).to.be.equal(undefined);
     });
 
     it('should provide compile method', function () {

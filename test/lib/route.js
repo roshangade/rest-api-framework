@@ -8,7 +8,7 @@
 /**
  * Route
  */
-const { expect } = require('chai');
+const {expect} = require('chai');
 const route = require('./../../lib/route');
 const stack = require('./../../lib/stack');
 
@@ -28,12 +28,14 @@ describe('#route', function () {
     });
 
     it('should provide use method for middlewares', function () {
-        let task = function () { };
+        let task = function () {
+            // mock function
+        };
         expect(route).to.have.property('use');
 
         route.use(task);
         expect(stack.middlewares.length).to.equal(3);
-        expect(stack.middlewares.pop()).to.eql({ task });
+        expect(stack.middlewares.pop()).to.eql({task});
 
         try {
             route.use('task');
@@ -54,12 +56,14 @@ describe('#route', function () {
     });
 
     it('should provide all http methods for every method for a specific route', function () {
-        let task = function () { };
+        let task = function () {
+            // mock function
+        };
         expect(route).to.have.property('all');
 
         route.all('/', task);
         expect(stack.routes.length).to.equal(1);
-        expect(stack.routes.pop()).to.eql({ 'method': 'ALL', 'path': '/', 'pattern': /^\/?$/i, task });
+        expect(stack.routes.pop()).to.eql({'method': 'ALL', 'path': '/', 'pattern': /^\/?$/i, task});
 
         try {
             route.all(task);
@@ -84,10 +88,12 @@ describe('#route', function () {
         expect(stack.routes.length).to.equal(0);
         expect(blog).to.have.property('use');
 
-        let task = function () { };
+        let task = function () {
+            // mock function
+        };
         blog.use(task)
         expect(stack.routes.length).to.equal(1);
-        expect(stack.routes).to.be.deep.equal([{ method: 'ALL', path: '/blog/*', pattern: /^\/blog(.*)\/?$/i, task }]);
+        expect(stack.routes).to.be.deep.equal([{method: 'ALL', path: '/blog/*', pattern: /^\/blog(.*)\/?$/i, task}]);
 
         try {
             route.for();
@@ -106,16 +112,18 @@ describe('#route', function () {
     });
 
     it('should provide error method to handle exceptions/errors', function () {
-        let task = function () { };
+        let task = function () {
+            // mock function
+        };
         expect(route).to.have.property('error');
 
         route.error(task);
         expect(stack.exceptions.length).to.equal(1);
-        expect(stack.exceptions.pop()).to.eql({ task });
+        expect(stack.exceptions.pop()).to.eql({task});
 
         route.error('NOT_FOUND', task);
         expect(stack.exceptions.length).to.equal(1);
-        expect(stack.exceptions).to.be.deep.equal([{ code: 'NOT_FOUND', task }]);
+        expect(stack.exceptions).to.be.deep.equal([{code: 'NOT_FOUND', task}]);
 
         try {
             route.error('task');

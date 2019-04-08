@@ -1,5 +1,5 @@
 //const util = require('util');
-const { app, route, server } = require('./../api');
+const {app, route, server} = require('./../api');
 require('./user');
 
 let foo = route.for('/foo');
@@ -13,7 +13,7 @@ foo.get('/', (req, res) => {
 });
 
 foo.post('/1', (req, res) => {
-     console.log(req.body)
+    console.log(req.body)
     res.send('foo 1');
 });
 
@@ -30,7 +30,7 @@ bar.get('/', (req, res) => {
 });
 
 bar.post('/1', (req, res) => {
-     console.log(req.body)
+    console.log(req.body)
     res.send('bar 1');
 });
 
@@ -67,7 +67,7 @@ route.get('/page/:page/:limit?', (req, res) => {
 // ----------------- Custom Error --------------------
 route.get('/error', (req, res) => {
     // throw custom error and set code
-    return Promise.reject({ message: 'You are not authorized.', code: 'NOT_AUTHORIZED' })
+    return Promise.reject({message: 'You are not authorized.', code: 'NOT_AUTHORIZED'})
 });
 
 // ----------------- Uncaught Error ----------------- 
@@ -81,14 +81,14 @@ route.get('/:a', (req, res) => {
 // code should be first parameter for user errors
 route.error('NOT_AUTHORIZED', (err, req, res) => {
     // parse response 
-    res.status(422).send({ message: err.message });
+    res.status(422).send({message: err.message});
 });
 
 // ------------------ Uncaught Errors / User thrown errors -------------
 route.error((err, req, res) => {
     console.log('error', err)
     // common error handler
-    res.send({ message: err.message });
+    res.send({message: err.message});
 });
 
 // start server

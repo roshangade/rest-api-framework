@@ -1,6 +1,6 @@
 {
   "name": "rest-api-framework",
-  "version": "0.0.1-rc.3",
+  "version": "0.0.1",
   "description": "Framework for building REST API",
   "main": "api.js",
   "scripts": {

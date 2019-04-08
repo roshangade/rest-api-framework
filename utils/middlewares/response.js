@@ -5,7 +5,7 @@
  * MIT Licensed
  */
 
- /**
+/**
  * Response Handlers
  */
 const response = (req, res) => {

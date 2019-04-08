@@ -8,7 +8,7 @@
 /**
  * Stack
  */
-const { expect } = require('chai');
+const {expect} = require('chai');
 const stack = require('./../../lib/stack');
 
 describe('#stack', function () {

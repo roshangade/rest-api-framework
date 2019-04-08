@@ -8,7 +8,7 @@
 /**
  * Server
  */
-const { expect } = require('chai');
+const {expect} = require('chai');
 const server = require('./../../lib/server');
 const EventEmitter = require('events');
 

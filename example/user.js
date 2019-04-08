@@ -7,5 +7,5 @@ route.all('/user', (req, res) => {
 
 route.get('/user', (req, res) => {
     console.log('----> ', app.get('config:a'));
-    res.send({ user: 1 });
+    res.send({user: 1});
 });

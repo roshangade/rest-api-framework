@@ -65,7 +65,7 @@ const Url = function () {
 
             (!!keys.length) && (pattern += '(?:/)?');
             pattern = new RegExp('^' + pattern + '\/?$', 'i');
-            let data = { pattern };
+            let data = {pattern};
             (!!keys.length) && (data.keys = keys);
             return data;
         }
