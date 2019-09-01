@@ -78,3 +78,8 @@ test
 
 #example
 example
+
+#code quality improvements
+coverage.lcov
+wercker.yml
+codecov.yml

@@ -5,6 +5,7 @@ Simple REST API framework for Node.js
 [![npm version](https://img.shields.io/npm/v/rest-api-framework.svg)](https://www.npmjs.com/package/rest-api-framework)
 [![npms score](https://badges.npms.io/rest-api-framework.svg)](https://npms.io/search?q=rest-api-framework)
 [![wercker status](https://app.wercker.com/status/954921c2dd16f079ab64a7abbb9e3e1f/s/master "wercker status")](https://app.wercker.com/project/byKey/954921c2dd16f079ab64a7abbb9e3e1f)
+[![codecov](https://codecov.io/gh/roshangade/rest-api-framework/branch/master/graph/badge.svg)](https://codecov.io/gh/roshangade/rest-api-framework)
 
 <!--[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/3143/badge)](https://bestpractices.coreinfrastructure.org/projects/3143)-->
 # Highlights
