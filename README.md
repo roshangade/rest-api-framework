@@ -3,12 +3,10 @@ Simple REST API framework for Node.js
 
 
 [![npm version](https://img.shields.io/npm/v/rest-api-framework.svg)](https://www.npmjs.com/package/rest-api-framework)
-
-[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/3143/badge)](https://bestpractices.coreinfrastructure.org/projects/3143)
 [![npms score](https://badges.npms.io/rest-api-framework.svg)](https://npms.io/search?q=rest-api-framework)
+[![wercker status](https://app.wercker.com/status/954921c2dd16f079ab64a7abbb9e3e1f/s/master "wercker status")](https://app.wercker.com/project/byKey/954921c2dd16f079ab64a7abbb9e3e1f)
 
-[![wercker status](https://app.wercker.com/status/d4f45e1fa3e4527e957efab7d2ccbc9c/s/master "wercker status")](https://app.wercker.com/project/byKey/d4f45e1fa3e4527e957efab7d2ccbc9c)
-
+<!--[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/3143/badge)](https://bestpractices.coreinfrastructure.org/projects/3143)-->
 # Highlights
 - No need to set app as global variable
   > Will provide a _route method, route.get, route.use,_ etc.
