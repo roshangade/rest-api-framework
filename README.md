@@ -7,6 +7,7 @@ Simple REST API framework for Node.js
 [![codecov](https://codecov.io/gh/roshangade/rest-api-framework/branch/master/graph/badge.svg)](https://codecov.io/gh/roshangade/rest-api-framework)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/336e8b4ad77f483ab57cd8112006de87)](https://app.codacy.com/app/roshangade/rest-api-framework?utm_source=github.com&utm_medium=referral&utm_content=roshangade/rest-api-framework&utm_campaign=Badge_Grade_Dashboard)
 [![Known Vulnerabilities](https://snyk.io//test/github/roshangade/rest-api-framework/badge.svg?targetFile=package.json)](https://snyk.io//test/github/roshangade/rest-api-framework?targetFile=package.json)
+[![dependencies Status](https://david-dm.org/roshangade/rest-api-framework/status.svg)](https://david-dm.org/roshangade/rest-api-framework)
 <!--[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/3143/badge)](https://bestpractices.coreinfrastructure.org/projects/3143)-->
 
 # Highlights
