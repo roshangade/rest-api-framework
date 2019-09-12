@@ -91,7 +91,12 @@ describe('#route', function() {
     blog.use(task)
     expect(stack.routes.length).to.equal(1)
     // eslint-disable-next-line max-len
-    expect(stack.routes).to.be.deep.equal([{method: 'ALL', path: '/blog/*', pattern: /^\/blog(.*)\/?$/i, task}])
+    expect(stack.routes).to.be.deep.equal([{
+      method: 'ALL',
+      path: '/blog/*',
+      pattern: /^\/blog(.*)\/?$/i,
+      task,
+    }])
 
     try {
       route.for()
