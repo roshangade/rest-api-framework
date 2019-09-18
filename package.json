@@ -1,8 +1,9 @@
 {
   "name": "rest-api-framework",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Framework for building REST API with TypeScript support",
   "main": "api.js",
+  "types": "types",
   "scripts": {
     "test": "nyc --reporter=html mocha",
     "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
