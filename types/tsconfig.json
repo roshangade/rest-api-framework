@@ -1,0 +1,21 @@
+{
+  "files": [
+    "index.d.ts"
+  ],
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "lib": [
+      "es6"
+    ],
+    "noEmit": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": "./",
+    "typeRoots": [],
+    "types": []
+  }
+}

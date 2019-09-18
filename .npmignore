@@ -84,3 +84,6 @@ example
 coverage.lcov
 wercker.yml
 codecov.yml
+
+#ts
+types/*.json

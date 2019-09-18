@@ -15,7 +15,6 @@ Simple REST API framework for Node.js
 
 - No need to set app as global variable
   > Will provide a route method, route.get, route.use,_ etc.
-
 - No need to use deprecated domain-context for error handler
   > Will handle it in Promise
 - Extend server for more use
@@ -24,6 +23,8 @@ Simple REST API framework for Node.js
   > Use _app.set_ and _app.get_ method
 - Zero dependency 
   > No need to bother about vulnerabilities
+- TypeScript support
+  > Added required types for TypeScript
 ***
 # How to use
 ```
@@ -150,4 +151,29 @@ route.error((err, req, res) => {
 ### start server
 ```
 server.listen(3000);
+```
+
+### TypeScript Example
+```
+import {app, route, server, rest} from 'rest-api-framework'
+
+app.set('ENV', 'development')
+
+route.use((req: rest.Request): void => {
+    req.set('flag', 1)
+})
+
+route.get('/', (req: rest.Request, res: rest.Response): void => {
+    res.send('Hello, World!')
+})
+
+route.get('/error', (req: rest.Request, res: rest.Response) : Promise<void> => {
+    return Promise.reject(new Error('custom error'))
+})
+
+route.error('NOT_FOUND', (err: Error, req: rest.Request, res: rest.Response) => {
+    // status 404
+})
+
+server.listen(3000)
 ```
