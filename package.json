@@ -7,7 +7,9 @@
   "scripts": {
     "test": "nyc --reporter=html mocha",
     "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
-    "ts-lint": "dtslint types"
+    "ts-lint": "dtslint types",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "author": "Roshan Gade <roshangade@hotmail.com>",
   "homepage": "https://github.com/roshangade/rest-api-framework",
@@ -37,5 +39,8 @@
     "nyc": "^14.1.1",
     "sinon": "^7.1.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "snyk": "^1.235.0"
+  },
+  "snyk": true
 }
