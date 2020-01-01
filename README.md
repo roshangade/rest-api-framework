@@ -3,7 +3,7 @@ Simple REST API framework for Node.js
 
 [![npm version](https://img.shields.io/npm/v/rest-api-framework.svg)](https://www.npmjs.com/package/rest-api-framework)
 [![npms score](https://badges.npms.io/rest-api-framework.svg)](https://npms.io/search?q=rest-api-framework)
-[![wercker status](https://app.wercker.com/status/954921c2dd16f079ab64a7abbb9e3e1f/s/master "wercker status")](https://app.wercker.com/project/byKey/954921c2dd16f079ab64a7abbb9e3e1f)
+[![github_actions status](https://github.com/roshangade/rest-api-framework/workflows/CI/badge.svg)](https://github.com/roshangade/rest-api-framework/actions?query=workflow%3ACI)
 [![codecov](https://codecov.io/gh/roshangade/rest-api-framework/branch/master/graph/badge.svg)](https://codecov.io/gh/roshangade/rest-api-framework)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/336e8b4ad77f483ab57cd8112006de87)](https://app.codacy.com/app/roshangade/rest-api-framework?utm_source=github.com&utm_medium=referral&utm_content=roshangade/rest-api-framework&utm_campaign=Badge_Grade_Dashboard)
 [![Known Vulnerabilities](https://snyk.io//test/github/roshangade/rest-api-framework/badge.svg?targetFile=package.json)](https://snyk.io//test/github/roshangade/rest-api-framework?targetFile=package.json)
