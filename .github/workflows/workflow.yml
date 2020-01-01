@@ -19,6 +19,6 @@ jobs:
     - run: npm run report-coverage
 
     - uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }} #required
-          file: ./coverage.lcov
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }} #required
+        file: ./coverage.lcov
