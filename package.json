@@ -6,7 +6,7 @@
   "types": "types",
   "scripts": {
     "test": "nyc --reporter=html mocha",
-    "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov -t ${{ secrets.CODECOV_TOKEN }}",
+    "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "ts-lint": "dtslint types"
   },
   "author": "Roshan Gade <roshangade@hotmail.com>",
