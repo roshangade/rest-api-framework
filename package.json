@@ -1,6 +1,6 @@
 {
   "name": "rest-api-framework",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Framework for building REST API with TypeScript support",
   "main": "api.js",
   "types": "types",
