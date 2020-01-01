@@ -12,6 +12,9 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: '12.x'
+    - uses: codecov/codecov-action@v1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }} #required
 
     - run: npm install
     - run: npm run ts-lint
