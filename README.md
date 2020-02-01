@@ -177,3 +177,5 @@ route.error('NOT_FOUND', (err: Error, req: rest.Request, res: rest.Response) => 
 
 server.listen(3000)
 ```
+## Sponsors
+[<img src="https://avatars0.githubusercontent.com/u/878437?s=200&v=4">](https://www.jetbrains.com/?from=Go+REST+Services)
