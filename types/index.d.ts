@@ -1,6 +1,6 @@
 /*!
  * rest-api-framework
- * Copyright(c) 2018-2019 Roshan Gade
+ * Copyright(c) 2018-2020 Roshan Gade
  * MIT Licensed
  */
 /// <reference types="node" />
@@ -34,9 +34,10 @@ export declare namespace rest {
 
     // rest.Response interface for http response
     interface Response extends http.ServerResponse {
-        status(code: number): Response,
         readonly json: ResponseWriter,
         readonly send: ResponseWriter,
+
+        status(code: number): Response,
     }
 
     // rest.Params interface used in http request url

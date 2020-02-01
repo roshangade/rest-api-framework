@@ -1,7 +1,7 @@
 'use strict'
 /*!
  * rest-api-framework
- * Copyright(c) 2018-2019 Roshan Gade
+ * Copyright(c) 2018-2020 Roshan Gade
  * MIT Licensed
  */
 
@@ -79,7 +79,7 @@ describe('#request-handler', function() {
     route.use(_middleware)
 
     const _route = sinon.spy(function(req, res) {
-      res.end('done')
+      res.json({message: 'Hello World!'})
     })
     route.get('/greeting', _route)
 
@@ -87,6 +87,9 @@ describe('#request-handler', function() {
       .then(() => {
         expect(_middleware.callCount).to.be.equal(1)
         expect(_route.callCount).to.be.equal(1)
+        expect(res.statusCode).to.be.equal(200)
+        expect(res._headers['content-type']).to.be.equal('application/json')
+        expect(res._getData()).to.be.equal('{"message":"Hello World!"}')
       })
       .then(done)
       .catch(done)
@@ -103,12 +106,16 @@ describe('#request-handler', function() {
 
     const _route = sinon.spy(function(req, res) {
       expect(req.params.uid).to.be.equal('foo')
+      res.status(204).end()
     })
     route.all('/users/:uid', _route)
+    route.get('/users/:uid', _route) // this will not execute
 
     handler.execute(req, res)
       .then(() => {
         expect(_route.callCount).to.be.equal(1)
+        expect(res.statusCode).to.be.equal(204)
+        expect(res._getData()).to.be.equal('')
       })
       .then(done)
       .catch(done)
@@ -133,7 +140,7 @@ describe('#request-handler', function() {
     route.get('/error', _route)
 
     const _error = sinon.spy(function(err, req, res) {
-      res.status(422).send(err.message)
+      res.status(422).json({message: err.message})
     })
     route.error(_error)
 
@@ -142,6 +149,9 @@ describe('#request-handler', function() {
         expect(_middleware.callCount).to.be.equal(1)
         expect(_route.callCount).to.be.equal(1)
         expect(_error.callCount).to.be.equal(1)
+        expect(res.statusCode).to.be.equal(422)
+        expect(res._headers['content-type']).to.be.equal('application/json')
+        expect(res._getData()).to.be.equal('{"message":"Uncaught error"}')
       })
       .then(done)
       .catch(done)
@@ -152,20 +162,21 @@ describe('#request-handler', function() {
 
     const req = http.createRequest({
       method: 'GET',
-      url: '/login',
+      url: '/user',
     })
     const res = http.createResponse()
 
     const _route = sinon.spy(function(req, res) {
-      const err = TypeError('You are not authorized.')
-      err.code = 'NOT_AUTHORIZED'
+      const err = TypeError('You are not authenticated.')
+      err.code = 'NOT_AUTHENTICATED'
       throw err
     })
-    route.get('/login', _route)
+    route.get('/user', _route)
 
     const _error = sinon.spy(function(err, req, res) {
-      res.status(401).send(err.message)
+      res.status(401).json({message: err.message})
     })
+    route.error('NOT_AUTHENTICATED', _error)
     route.error('NOT_AUTHORIZED', _error)
 
     handler.execute(req, res)
@@ -173,6 +184,8 @@ describe('#request-handler', function() {
         expect(_route.callCount).to.be.equal(1)
         expect(_error.callCount).to.be.equal(1)
         expect(res.statusCode).to.be.equal(401)
+        expect(res._headers['content-type']).to.be.equal('application/json')
+        expect(res._getData()).to.be.equal('{"message":"You are not authenticated."}')
       })
       .then(done)
       .catch(done)
@@ -190,6 +203,34 @@ describe('#request-handler', function() {
     handler.execute(req, res)
       .then(() => {
         expect(res.statusCode).to.be.equal(404)
+        expect(res._headers['content-type']).to.be.equal('application/json')
+        expect(res._getData()).to.be.equal('{"message":"URL does not exists"}')
+      })
+      .then(done)
+      .catch(done)
+  })
+
+  it('should handle uncaught exception', function(done) {
+    expect(handler.execute).to.be.a('function')
+
+    const req = http.createRequest({
+      method: 'GET',
+      url: '/',
+    })
+    const res = http.createResponse()
+
+    const _route = sinon.spy(function(req, res) {
+      // eslint-disable-next-line no-undef
+      a
+      res.send('unreached')
+    })
+    route.get('/', _route)
+
+    handler.execute(req, res)
+      .then(() => {
+        expect(res.statusCode).to.be.equal(500)
+        expect(res._headers['content-type']).to.be.equal('application/json')
+        expect(res._getData()).to.be.equal('{ "message": "Internal server error" }')
       })
       .then(done)
       .catch(done)
