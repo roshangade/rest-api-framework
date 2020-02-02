@@ -70,9 +70,14 @@ export declare namespace rest {
         (url: string, handler: Handler): void
     }
 
-    // rest.Route is used in `error`
+    // rest.Exception is used in `error`
     interface Exception {
         (code: string, handler: ExceptionHandler): void
+    }
+
+    // rest.Deferred is used in `error`
+    interface Deferred {
+        (code: string, data: object): void
     }
 }
 
@@ -80,6 +85,7 @@ export declare namespace rest {
 declare const app: {
     readonly set: Setter,
     readonly get: Getter,
+    readonly listener: rest.Handler,
 };
 
 // exposed type route
@@ -94,13 +100,11 @@ declare const route: {
     readonly options: rest.Route,
     readonly head: rest.Route,
     readonly error: rest.Exception,
+    readonly deferred: rest.Deferred
 };
 
-// exposed type server, similar to http.Server
-declare const server: http.Server;
 
 export {
     app,
     route,
-    server,
 }

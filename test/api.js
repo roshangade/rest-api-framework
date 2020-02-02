@@ -15,7 +15,7 @@ const api = require('./../api')
 describe('REST API Framework', function() {
   describe('#api', function() {
     it('returns object with following properties: app, route, server', function() {
-      expect(api).to.have.all.keys('app', 'route', 'server')
+      expect(api).to.have.all.keys('app', 'route')
     })
 
     it('should not extensible', function() {
@@ -30,7 +30,6 @@ describe('REST API Framework', function() {
 
   // lib
   require('./lib/stack')
-  require('./lib/server')
   require('./lib/application')
   require('./lib/route')
   require('./lib/request-handler')

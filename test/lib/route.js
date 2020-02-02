@@ -120,12 +120,10 @@ describe('#route', function() {
     expect(route).to.have.property('error')
 
     route.error(task)
-    expect(stack.exceptions.length).to.equal(1)
-    expect(stack.exceptions.pop()).to.eql({task})
+    expect(stack.exceptions[undefined]).to.equal(task)
 
     route.error('NOT_FOUND', task)
-    expect(stack.exceptions.length).to.equal(1)
-    expect(stack.exceptions).to.be.deep.equal([{code: 'NOT_FOUND', task}])
+    expect(stack.exceptions['NOT_FOUND']).to.equal(task)
 
     try {
       route.error('task')

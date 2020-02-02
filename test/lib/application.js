@@ -28,6 +28,7 @@ describe('#app', function() {
   it('should provide set and get methods', function() {
     expect(app.set).to.be.a('function')
     expect(app.get).to.be.a('function')
+    expect(app.listener).to.be.a('function')
 
     app.set('a', 1)
     expect(app.get('a')).to.equal(1)

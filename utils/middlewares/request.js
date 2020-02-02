@@ -20,6 +20,15 @@ const request = (req, res) => {
     req._ctx_data[key] = value
   }
   req.get = (key) => req._ctx_data[key]
+
+  // deferred tasks
+  req._deferred_tasks = []
+  req.defer = (key, data) => {
+    req._deferred_tasks.push({key, data})
+  }
+  req.defer.reset = () => {
+    req._deferred_tasks = []
+  }
 }
 
 module.exports = request
