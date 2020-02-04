@@ -25,10 +25,12 @@ Simple REST API framework for Node.js
   > No need to bother about vulnerabilities
 - TypeScript support
   > Added required types for TypeScript
+- Can easily execute deferred/delayed jobs
+  > Added support to execute your deferred functions after request end 
 ***
 # How to use
 ```
-const { app, route, server } = require('rest-api-framework');
+const { app, route } = require('rest-api-framework');
 
 app.set('foo', 'bar');
 app.get('foo');
@@ -123,6 +125,30 @@ route.use(jsonBodyParser);
 route.use(urlEncodedBodyParser);
 ```
 
+## How to execute deferred jobs?
+```
+const { route } = require('rest-api-framework')
+
+// Register deferred jobs
+route.deferred('LOG_REQUEST', (data) => {
+    console.log(data)
+})
+
+route.deferred('ANALYTICS', (data) => {
+    //TODO: send data to analytics server and return promise
+})
+
+// Execute registered deferred jobs by passing data
+route.get('/foo', (req, res) => {
+    // NOTE: execution of deferred jobs matters for sequential execution
+    req.defer('LOG_REQUEST', {})
+    // execute request and send response 
+    res.send('foo is ended')
+    req.defer('ANALYTICS', {})
+})
+
+```
+
 ### Error Handler
 A new way to handle errors and exceptions
 ```
@@ -150,12 +176,13 @@ route.error((err, req, res) => {
 
 ### start server
 ```
-server.listen(3000);
+http.createServer(app.listener).listen(3000);
 ```
 
 ### TypeScript Example
 ```
-import {app, route, server, rest} from 'rest-api-framework'
+import http from 'http'
+import {app, route, rest} from 'rest-api-framework'
 
 app.set('ENV', 'development')
 
@@ -175,7 +202,7 @@ route.error('NOT_FOUND', (err: Error, req: rest.Request, res: rest.Response) => 
     // status 404
 })
 
-server.listen(3000)
+http.createServer(app.listener).listen(3000)
 ```
 ## Sponsors
 [<img src="https://avatars0.githubusercontent.com/u/878437?s=200&v=4">](https://www.jetbrains.com/?from=Go+REST+Services)

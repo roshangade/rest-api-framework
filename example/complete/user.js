@@ -11,6 +11,7 @@ route.deferred('X', (data) => {
 })
 
 route.deferred('Y', (data) => {
+  throw new Error('a')
   console.log('yyyyyyyyyyyyyyyyyyyyyyyyyy', data)
 })
 
