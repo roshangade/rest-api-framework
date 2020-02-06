@@ -130,7 +130,7 @@ route.use(urlEncodedBodyParser);
 const { route } = require('rest-api-framework')
 
 // Register deferred jobs
-route.deferred('LOG_REQUEST', (data) => {
+route.deferred('LOG', (data) => {
     console.log(data)
 })
 
@@ -140,7 +140,7 @@ route.deferred('ANALYTICS', (data) => {
 
 // Execute registered deferred jobs by passing data
 route.get('/foo', (req, res) => {
-    // NOTE: execution of deferred jobs matters for sequential execution
+    // NOTE: registration of deferred jobs matters for sequential execution
     req.defer('LOG_REQUEST', {})
     // execute request and send response 
     res.send('foo is ended')

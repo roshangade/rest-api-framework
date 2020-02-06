@@ -1,6 +1,6 @@
 {
   "name": "rest-api-framework",
-  "version": "0.1.9",
+  "version": "0.2.0-beta.1",
   "description": "Framework for building REST API with TypeScript support",
   "main": "api.js",
   "types": "types",
@@ -19,7 +19,9 @@
     "promise",
     "promise-api",
     "framework",
-    "javascript"
+    "javascript",
+    "deferred-tasks",
+    "delayed-jobs"
   ],
   "repository": {
     "type": "git",
@@ -33,7 +35,7 @@
     "eslint": "^6.x",
     "eslint-config-google": "^0.14.x",
     "mocha": "^7.x",
-    "node-mocks-http": "^1.8.x",
+    "node-mocks-http": "roshangade/node-mocks-http",
     "nyc": "^15.x",
     "sinon": "^8.x"
   },

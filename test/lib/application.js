@@ -4,8 +4,9 @@
  * Copyright(c) 2018-2020 Roshan Gade
  * MIT Licensed
  */
+const http = require('node-mocks-http')
 
-/**
+/*
  * Application
  */
 const {expect} = require('chai')
@@ -28,7 +29,6 @@ describe('#app', function() {
   it('should provide set and get methods', function() {
     expect(app.set).to.be.a('function')
     expect(app.get).to.be.a('function')
-    expect(app.listener).to.be.a('function')
 
     app.set('a', 1)
     expect(app.get('a')).to.equal(1)
@@ -40,6 +40,28 @@ describe('#app', function() {
       expect(e).to.be.an.instanceof(TypeError)
       // eslint-disable-next-line max-len
       expect(e.message).to.equal('app.set() requires first argument as a string and dot(.) is not allowed')
+    }
+
+    try {
+      app.set('a.b.c', 1)
+    } catch (e) {
+      // eslint-disable-next-line max-len
+      expect(e.message).to.equal('app.set() requires first argument as a string and dot(.) is not allowed')
+    }
+  })
+
+  it('should provide listener method', function() {
+    expect(app.listener).to.be.a('function')
+
+    const req = http.createRequest()
+    const res = http.createResponse()
+
+    try {
+      app.listener(req, res)
+      expect(res.statusCode).to.be.equal(200)
+    } catch (e) {
+      console.log(e)
+      expect(e).to.be.equal(null)
     }
 
     try {

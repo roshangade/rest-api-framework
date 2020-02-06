@@ -53,7 +53,7 @@ describe('#request-handler', function() {
     const _middleware = sinon.spy(function(req, res) {
       req.set('foo', 'bar')
       expect(req.get('foo')).to.be.equal('bar')
-      res.finished = true
+      res.writableEnded = true
     })
     route.use(_middleware)
     route.use(_middleware)
@@ -231,6 +231,112 @@ describe('#request-handler', function() {
         expect(res.statusCode).to.be.equal(500)
         expect(res._headers['content-type']).to.be.equal('application/json')
         expect(res._getData()).to.be.equal('{ "message": "Internal server error" }')
+      })
+      .then(done)
+      .catch(done)
+  })
+
+  it('should handle deferred tasks', function(done) {
+    expect(handler.execute).to.be.a('function')
+
+    const req = http.createRequest({
+      method: 'GET',
+      url: '/',
+    })
+    const res = http.createResponse()
+
+    const _route = sinon.spy(function(req, res) {
+      req.defer('foo', 'bar')
+      req.defer('foo', 'bar')
+      // eslint-disable-next-line no-undef
+      res.send('Hello world!')
+    })
+
+    const _deferredTask = sinon.spy(function(data) {
+      expect(data).to.be.equal('bar')
+    })
+    route.get('/', _route)
+    route.deferred('foo', _deferredTask)
+
+    handler.execute(req, res)
+      .then(() => {
+        expect(res.statusCode).to.be.equal(200)
+        expect(res._getData()).to.be.equal('Hello world!')
+        expect(_deferredTask.callCount).to.be.equal(2)
+      })
+      .then(done)
+      .catch(done)
+  })
+
+  it('should reset deferred tasks', function(done) {
+    expect(handler.execute).to.be.a('function')
+
+    const req = http.createRequest({
+      method: 'GET',
+      url: '/',
+    })
+    const res = http.createResponse()
+
+    const _route = sinon.spy(function(req, res) {
+      req.defer('foo', 'bar')
+      req.defer('foo', 'bar')
+      // eslint-disable-next-line no-undef
+      res.send('Hello world!')
+      req.deferred.reset()
+    })
+
+    const _deferredTask = sinon.spy(function(data) {
+      expect(data).to.be.equal('bar')
+    })
+    route.get('/', _route)
+    route.deferred('foo', _deferredTask)
+
+    handler.execute(req, res)
+      .then(() => {
+        expect(res.statusCode).to.be.equal(200)
+        expect(res._getData()).to.be.equal('Hello world!')
+        expect(_deferredTask.callCount).to.be.equal(0)
+      })
+      .then(done)
+      .catch(done)
+  })
+
+  it('should should log an error of deferred task', function(done) {
+    expect(handler.execute).to.be.a('function')
+
+    const req = http.createRequest({
+      method: 'GET',
+      url: '/',
+    })
+    const res = http.createResponse()
+    sinon.stub(console, 'error')
+    const _route = sinon.spy(function(req, res) {
+      req.defer('foo', 1)
+      req.defer('bar', 2)
+      // eslint-disable-next-line no-undef
+      res.send('Hello world!')
+    })
+
+    const _deferredTask1 = sinon.spy(function(data) {
+      expect(data).to.be.equal(1)
+    })
+
+    const _deferredTask2 = sinon.spy(function(data) {
+      expect(data).to.be.equal(2)
+      throw new Error('dummy')
+    })
+
+    route.get('/', _route)
+    route.deferred('foo', _deferredTask1)
+    route.deferred('bar', _deferredTask2)
+
+    handler.execute(req, res)
+      .then(() => {
+        expect(res.statusCode).to.be.equal(200)
+        expect(res._getData()).to.be.equal('Hello world!')
+        expect(_deferredTask1.callCount).to.be.equal(1)
+        expect(_deferredTask2.callCount).to.be.equal(1)
+        expect( console.error.calledOnce ).to.be.equal(true)
       })
       .then(done)
       .catch(done)

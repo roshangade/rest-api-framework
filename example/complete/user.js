@@ -28,7 +28,8 @@ user.get('/', (req, res) => {
   req.defer('X', 'hello')
   req.defer('Y', 'world')
   req.defer('Z', 'from deferred')
-  res.send({users: []})
+  res.setHeader('Content-Type', 'plain/text')
+  res.status(511).send(new Date())
 })
 
 user.get('/:uid/profile', (req, res) => {
