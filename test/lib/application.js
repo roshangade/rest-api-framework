@@ -60,7 +60,6 @@ describe('#app', function() {
       app.listener(req, res)
       expect(res.statusCode).to.be.equal(200)
     } catch (e) {
-      console.log(e)
       expect(e).to.be.equal(null)
     }
 
