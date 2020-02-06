@@ -1,5 +1,5 @@
-//const util = require('util');
-const {app, route, server} = require('../../api')
+const http = require('http');
+const {app, route} = require('../../api')
 
 const foo = route.for('/foo')
 
@@ -45,7 +45,7 @@ console.log('Config', app.get('config.b.c'))
 // ------------------ Middleware ---------------------
 route.use((req, res) => {
   // middleware --> for async return Promise
-  return new Promise((resolve) => setTimeout(resolve, 100))
+  ///return new Promise((resolve) => setTimeout(resolve, 100))
 })
 
 route.all('/*', (req, res) => {
@@ -93,5 +93,6 @@ route.error((err, req, res) => {
 })
 
 // start server
+const server = http.createServer(app.listener)
 server.listen(4000)
 console.log('server started...')

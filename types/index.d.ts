@@ -22,6 +22,11 @@ declare interface ResponseWriter {
     (data: any): void
 }
 
+// Defer method
+declare interface Defer {
+    (key: string, value: any): void
+}
+
 // expose rest
 export declare namespace rest {
     // rest.Request interface for http request
@@ -30,6 +35,11 @@ export declare namespace rest {
         readonly params: Params,
         readonly set: Setter,
         readonly get: Getter,
+
+        readonly defer: Defer
+        readonly deferred: {
+            readonly reset: () => void
+        }
     }
 
     // rest.Response interface for http response
@@ -48,6 +58,11 @@ export declare namespace rest {
     // rest.Handler function is used to declare function in route
     interface Handler {
         (req: Request, res: Response): Promise<any> | void
+    }
+
+    // rest.DeferredTask function is used to declare function in route
+    interface DeferredTask {
+        (data: any): Promise<void> | void
     }
 
     // rest.ExceptionHandler function is used to declare exception function in route
@@ -70,9 +85,14 @@ export declare namespace rest {
         (url: string, handler: Handler): void
     }
 
-    // rest.Route is used in `error`
+    // rest.Exception is used in `error`
     interface Exception {
         (code: string, handler: ExceptionHandler): void
+    }
+
+    // rest.Deferred is used in `error`
+    interface Deferred {
+        (key: string, task: DeferredTask): void
     }
 }
 
@@ -80,6 +100,7 @@ export declare namespace rest {
 declare const app: {
     readonly set: Setter,
     readonly get: Getter,
+    readonly listener: rest.Handler,
 };
 
 // exposed type route
@@ -94,13 +115,10 @@ declare const route: {
     readonly options: rest.Route,
     readonly head: rest.Route,
     readonly error: rest.Exception,
+    readonly deferred: rest.Deferred
 };
-
-// exposed type server, similar to http.Server
-declare const server: http.Server;
 
 export {
     app,
     route,
-    server,
 }

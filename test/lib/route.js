@@ -120,12 +120,10 @@ describe('#route', function() {
     expect(route).to.have.property('error')
 
     route.error(task)
-    expect(stack.exceptions.length).to.equal(1)
-    expect(stack.exceptions.pop()).to.eql({task})
+    expect(stack.exceptions[undefined]).to.equal(task)
 
     route.error('NOT_FOUND', task)
-    expect(stack.exceptions.length).to.equal(1)
-    expect(stack.exceptions).to.be.deep.equal([{code: 'NOT_FOUND', task}])
+    expect(stack.exceptions['NOT_FOUND']).to.equal(task)
 
     try {
       route.error('task')
@@ -139,6 +137,40 @@ describe('#route', function() {
     } catch (e) {
       expect(e).to.be.an.instanceof(TypeError)
       expect(e.message).to.equal('Error code should be a string')
+    }
+  })
+
+  it('should support deferred tasks', function() {
+    const task = function(data) {
+      // mock function
+    }
+    expect(route).to.have.property('deferred')
+
+    route.deferred('foo', task)
+    expect(stack.deferred['foo']).to.equal(task)
+
+    route.deferred('bar', task)
+    expect(stack.deferred['bar']).to.equal(task)
+
+    try {
+      route.deferred('task')
+    } catch (e) {
+      expect(e).to.be.an.instanceof(TypeError)
+      expect(e.message).to.equal('Deferred function should have 2 arguments')
+    }
+
+    try {
+      route.deferred(1, task)
+    } catch (e) {
+      expect(e).to.be.an.instanceof(TypeError)
+      expect(e.message).to.equal('Deferred task key should be a string')
+    }
+
+    try {
+      route.deferred('foo', 'bar')
+    } catch (e) {
+      expect(e).to.be.an.instanceof(TypeError)
+      expect(e.message).to.equal('Deferred task requires a callback function')
     }
   })
 })

@@ -13,10 +13,11 @@ const stack = require('./../../lib/stack')
 
 describe('#stack', function() {
   it('returns object with following properties: middlewares, routes, exceptions', function() {
-    expect(stack).to.have.all.keys('middlewares', 'routes', 'exceptions')
+    expect(stack).to.have.all.keys('middlewares', 'routes', 'deferred', 'exceptions')
     expect(stack.middlewares).to.be.an('array')
     expect(stack.routes).to.be.an('array')
-    expect(stack.exceptions).to.be.an('array')
+    expect(stack.exceptions).to.be.an('object')
+    expect(stack.deferred).to.be.an('object')
   })
 
   it('should not extensible', function() {

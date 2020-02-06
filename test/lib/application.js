@@ -4,8 +4,9 @@
  * Copyright(c) 2018-2020 Roshan Gade
  * MIT Licensed
  */
+const http = require('node-mocks-http')
 
-/**
+/*
  * Application
  */
 const {expect} = require('chai')
@@ -39,6 +40,27 @@ describe('#app', function() {
       expect(e).to.be.an.instanceof(TypeError)
       // eslint-disable-next-line max-len
       expect(e.message).to.equal('app.set() requires first argument as a string and dot(.) is not allowed')
+    }
+
+    try {
+      app.set('a.b.c', 1)
+    } catch (e) {
+      // eslint-disable-next-line max-len
+      expect(e.message).to.equal('app.set() requires first argument as a string and dot(.) is not allowed')
+    }
+  })
+
+  it('should provide listener method', function() {
+    expect(app.listener).to.be.a('function')
+
+    const req = http.createRequest()
+    const res = http.createResponse()
+
+    try {
+      app.listener(req, res)
+      expect(res.statusCode).to.be.equal(200)
+    } catch (e) {
+      expect(e).to.be.equal(null)
     }
 
     try {
