@@ -22,6 +22,11 @@ declare interface ResponseWriter {
     (data: any): void
 }
 
+// setter method
+declare interface Defer {
+    (key: string, value: any): void
+}
+
 // expose rest
 export declare namespace rest {
     // rest.Request interface for http request
@@ -30,6 +35,11 @@ export declare namespace rest {
         readonly params: Params,
         readonly set: Setter,
         readonly get: Getter,
+
+        readonly defer: Defer
+        readonly deferred: {
+            readonly reset: Function
+        }
     }
 
     // rest.Response interface for http response
@@ -48,6 +58,11 @@ export declare namespace rest {
     // rest.Handler function is used to declare function in route
     interface Handler {
         (req: Request, res: Response): Promise<any> | void
+    }
+
+    // rest.DeferredTask function is used to declare function in route
+    interface DeferredTask {
+        (data: any): Promise<void> | void
     }
 
     // rest.ExceptionHandler function is used to declare exception function in route
@@ -77,7 +92,7 @@ export declare namespace rest {
 
     // rest.Deferred is used in `error`
     interface Deferred {
-        (code: string, data: object): void
+        (key: string, task: DeferredTask): void
     }
 }
 
@@ -102,7 +117,6 @@ declare const route: {
     readonly error: rest.Exception,
     readonly deferred: rest.Deferred
 };
-
 
 export {
     app,
