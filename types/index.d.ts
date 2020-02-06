@@ -22,7 +22,7 @@ declare interface ResponseWriter {
     (data: any): void
 }
 
-// setter method
+// Defer method
 declare interface Defer {
     (key: string, value: any): void
 }
@@ -38,7 +38,7 @@ export declare namespace rest {
 
         readonly defer: Defer
         readonly deferred: {
-            readonly reset: Function
+            readonly reset: () => void
         }
     }
 
