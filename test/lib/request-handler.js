@@ -336,6 +336,7 @@ describe('#request-handler', function() {
         expect(res._getData()).to.be.equal('Hello world!')
         expect(_deferredTask1.callCount).to.be.equal(1)
         expect(_deferredTask2.callCount).to.be.equal(1)
+        // eslint-disable-next-line no-console
         expect( console.error.calledOnce ).to.be.equal(true)
       })
       .then(done)
