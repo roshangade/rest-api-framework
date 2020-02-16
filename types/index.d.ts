@@ -36,7 +36,7 @@ export declare namespace rest {
         readonly set: Setter,
         readonly get: Getter,
 
-        readonly defer: Defer
+        readonly defer: Defer,
         readonly deferred: {
             readonly reset: () => void
         }
@@ -100,7 +100,6 @@ export declare namespace rest {
 declare const app: {
     readonly set: Setter,
     readonly get: Getter,
-    readonly listener: rest.Handler,
 };
 
 // exposed type route
@@ -118,7 +117,10 @@ declare const route: {
     readonly deferred: rest.Deferred
 };
 
+declare const requestListener: http.RequestListener;
+
 export {
     app,
     route,
+    requestListener
 }

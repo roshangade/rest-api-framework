@@ -6,14 +6,21 @@
  */
 const app = require('./lib/application')
 const route = require('./lib/route')
+const requestListener = require('./lib/request-listener')
+const {request, response} = require('./lib/middlewares')
 
 /*
  * Expose API
  */
 const API = function() {
+  // load default middlewares
+  route.use(request)
+  route.use(response)
+
   return Object.freeze({
     app,
     route,
+    requestListener,
   })
 }
 
