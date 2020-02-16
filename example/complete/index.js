@@ -1,5 +1,5 @@
 const http = require('http');
-const {app, route} = require('../../api')
+const {app, route, requestListener} = require('../../api')
 
 const foo = route.for('/foo')
 
@@ -93,6 +93,5 @@ route.error((err, req, res) => {
 })
 
 // start server
-const server = http.createServer(app.listener)
-server.listen(4000)
+http.createServer(requestListener).listen(4000)
 console.log('server started...')

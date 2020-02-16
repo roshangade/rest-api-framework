@@ -30,7 +30,7 @@ Simple REST API framework for Node.js
 ***
 # How to use
 ```
-const { app, route } = require('rest-api-framework');
+const { app, route, requestListener } = require('rest-api-framework');
 
 app.set('foo', 'bar');
 app.get('foo');
@@ -176,13 +176,13 @@ route.error((err, req, res) => {
 
 ### start server
 ```
-http.createServer(app.listener).listen(3000);
+http.createServer(requestListener).listen(3000);
 ```
 
 ### TypeScript Example
 ```
 import http from 'http'
-import {app, route, rest} from 'rest-api-framework'
+import {app, route, requestListener, rest} from 'rest-api-framework'
 
 app.set('ENV', 'development')
 
@@ -202,7 +202,7 @@ route.error('NOT_FOUND', (err: Error, req: rest.Request, res: rest.Response) => 
     // status 404
 })
 
-http.createServer(app.listener).listen(3000)
+http.createServer(requestListener).listen(3000)
 ```
 ## Sponsors
 [<img src="https://avatars0.githubusercontent.com/u/878437?s=200&v=4">](https://www.jetbrains.com/?from=Go+REST+Services)

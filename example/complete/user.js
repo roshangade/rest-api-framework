@@ -29,10 +29,10 @@ user.get('/', (req, res) => {
   req.defer('Y', 'world')
   req.defer('Z', 'from deferred')
   res.setHeader('Content-Type', 'plain/text')
-  res.status(511).send(new Date())
+  res.status(511).send('xxxx')
 })
 
 user.get('/:uid/profile', (req, res) => {
   console.log('----> ', app.get('config'))
-  res.send({user: req.params.uid})
+  res.json({user: req.params.uid})
 })

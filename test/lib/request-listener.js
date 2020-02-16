@@ -6,43 +6,52 @@
  */
 
 /**
- * Request Handler
+ * Request Listener
  */
 const {expect} = require('chai')
 const sinon = require('sinon')
 const http = require('node-mocks-http')
-const {request, response} = require('./../../utils/middlewares')
+const {request, response} = require('../../lib/middlewares')
 
-let handler
+let requestListener
 let route
 
-describe('#request-handler', function() {
+describe('#request-listener', function() {
 
   beforeEach(function() {
     delete require.cache[require.resolve('./../../lib/stack')]
-    delete require.cache[require.resolve('./../../lib/request-handler')]
+    delete require.cache[require.resolve('./../../lib/request-listener')]
     delete require.cache[require.resolve('./../../lib/route')]
-    handler = require('./../../lib/request-handler')
+    requestListener = require('./../../lib/request-listener')
     route = require('./../../lib/route')
     route.use(request)
     route.use(response)
   })
 
-  it('returns request handler object', function() {
-    expect(handler).to.be.an('object')
+  it('returns request listener object', function() {
+    expect(requestListener).to.be.an('Function')
   })
 
   it('should not extensible', function() {
+    //TODO: pending
+  })
+
+  it('should provide listener method', function() {
+    expect(requestListener).to.be.a('function')
+
+    const req = http.createRequest()
+    const res = http.createResponse()
+
     try {
-      handler.test = 1
-      expect(handler).to.not.have.property('test')
-    } catch (err) {
-      expect(err).to.be.an('error')
+      requestListener(req, res)
+      expect(res.statusCode).to.be.equal(200)
+    } catch (e) {
+      expect(e).to.be.equal(null)
     }
   })
 
   it('should break executing further handlers', function(done) {
-    expect(handler.execute).to.be.a('function')
+    expect(requestListener).to.be.a('function')
 
     const req = http.createRequest({
       method: 'GET',
@@ -58,7 +67,7 @@ describe('#request-handler', function() {
     route.use(_middleware)
     route.use(_middleware)
 
-    handler.execute(req, res)
+    requestListener(req, res)
       .then(() => {
         expect(_middleware.callCount).to.be.equal(1)
       })
@@ -67,7 +76,7 @@ describe('#request-handler', function() {
   })
 
   it('should provide execute method to handle all requests', function(done) {
-    expect(handler.execute).to.be.a('function')
+    expect(requestListener).to.be.a('function')
 
     const req = http.createRequest({
       method: 'GET',
@@ -83,7 +92,7 @@ describe('#request-handler', function() {
     })
     route.get('/greeting', _route)
 
-    handler.execute(req, res)
+    requestListener(req, res)
       .then(() => {
         expect(_middleware.callCount).to.be.equal(1)
         expect(_route.callCount).to.be.equal(1)
@@ -96,7 +105,7 @@ describe('#request-handler', function() {
   })
 
   it('should handle execute for all methods of specific route(s)', function(done) {
-    expect(handler.execute).to.be.a('function')
+    expect(requestListener).to.be.a('function')
 
     const req = http.createRequest({
       method: 'GET',
@@ -105,24 +114,26 @@ describe('#request-handler', function() {
     const res = http.createResponse()
 
     const _route = sinon.spy(function(req, res) {
+      console.log('=======> wwwwwwwwwww')
       expect(req.params.uid).to.be.equal('foo')
       res.status(204).end()
     })
     route.all('/users/:uid', _route)
     route.get('/users/:uid', _route) // this will not execute
 
-    handler.execute(req, res)
+    requestListener(req, res)
       .then(() => {
         expect(_route.callCount).to.be.equal(1)
         expect(res.statusCode).to.be.equal(204)
         expect(res._getData()).to.be.equal('')
+        done()
       })
-      .then(done)
+      //.then(done)
       .catch(done)
   })
 
   it('should handle uncaught errors', function(done) {
-    expect(handler.execute).to.be.a('function')
+    expect(requestListener).to.be.a('function')
 
     const req = http.createRequest({
       method: 'GET',
@@ -144,7 +155,7 @@ describe('#request-handler', function() {
     })
     route.error(_error)
 
-    handler.execute(req, res)
+    requestListener(req, res)
       .then(() => {
         expect(_middleware.callCount).to.be.equal(1)
         expect(_route.callCount).to.be.equal(1)
@@ -158,7 +169,7 @@ describe('#request-handler', function() {
   })
 
   it('should handle errors', function(done) {
-    expect(handler.execute).to.be.a('function')
+    expect(requestListener).to.be.a('function')
 
     const req = http.createRequest({
       method: 'GET',
@@ -179,7 +190,7 @@ describe('#request-handler', function() {
     route.error('NOT_AUTHENTICATED', _error)
     route.error('NOT_AUTHORIZED', _error)
 
-    handler.execute(req, res)
+    requestListener(req, res)
       .then(() => {
         expect(_route.callCount).to.be.equal(1)
         expect(_error.callCount).to.be.equal(1)
@@ -192,7 +203,7 @@ describe('#request-handler', function() {
   })
 
   it('should handle 404 urls', function(done) {
-    expect(handler.execute).to.be.a('function')
+    expect(requestListener).to.be.a('function')
 
     const req = http.createRequest({
       method: 'GET',
@@ -200,7 +211,7 @@ describe('#request-handler', function() {
     })
     const res = http.createResponse()
 
-    handler.execute(req, res)
+    requestListener(req, res)
       .then(() => {
         expect(res.statusCode).to.be.equal(404)
         expect(res._headers['content-type']).to.be.equal('application/json')
@@ -211,7 +222,7 @@ describe('#request-handler', function() {
   })
 
   it('should handle uncaught exception', function(done) {
-    expect(handler.execute).to.be.a('function')
+    expect(requestListener).to.be.a('function')
 
     const req = http.createRequest({
       method: 'GET',
@@ -226,7 +237,7 @@ describe('#request-handler', function() {
     })
     route.get('/', _route)
 
-    handler.execute(req, res)
+    requestListener(req, res)
       .then(() => {
         expect(res.statusCode).to.be.equal(500)
         expect(res._headers['content-type']).to.be.equal('application/json')
@@ -237,7 +248,7 @@ describe('#request-handler', function() {
   })
 
   it('should handle deferred tasks', function(done) {
-    expect(handler.execute).to.be.a('function')
+    expect(requestListener).to.be.a('function')
 
     const req = http.createRequest({
       method: 'GET',
@@ -258,7 +269,7 @@ describe('#request-handler', function() {
     route.get('/', _route)
     route.deferred('foo', _deferredTask)
 
-    handler.execute(req, res)
+    requestListener(req, res)
       .then(() => {
         expect(res.statusCode).to.be.equal(200)
         expect(res._getData()).to.be.equal('Hello world!')
@@ -269,7 +280,7 @@ describe('#request-handler', function() {
   })
 
   it('should reset deferred tasks', function(done) {
-    expect(handler.execute).to.be.a('function')
+    expect(requestListener).to.be.a('function')
 
     const req = http.createRequest({
       method: 'GET',
@@ -291,7 +302,7 @@ describe('#request-handler', function() {
     route.get('/', _route)
     route.deferred('foo', _deferredTask)
 
-    handler.execute(req, res)
+    requestListener(req, res)
       .then(() => {
         expect(res.statusCode).to.be.equal(200)
         expect(res._getData()).to.be.equal('Hello world!')
@@ -302,7 +313,7 @@ describe('#request-handler', function() {
   })
 
   it('should should log an error of deferred task', function(done) {
-    expect(handler.execute).to.be.a('function')
+    expect(requestListener).to.be.a('function')
 
     const req = http.createRequest({
       method: 'GET',
@@ -330,7 +341,7 @@ describe('#request-handler', function() {
     route.deferred('foo', _deferredTask1)
     route.deferred('bar', _deferredTask2)
 
-    handler.execute(req, res)
+    requestListener(req, res)
       .then(() => {
         expect(res.statusCode).to.be.equal(200)
         expect(res._getData()).to.be.equal('Hello world!')
