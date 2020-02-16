@@ -176,6 +176,8 @@ route.error((err, req, res) => {
 
 ### start server
 ```
+const {requestListener} = require('rest-api-framework')
+
 http.createServer(requestListener).listen(3000);
 ```
 
