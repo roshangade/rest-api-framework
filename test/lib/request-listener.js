@@ -17,7 +17,6 @@ let requestListener
 let route
 
 describe('#request-listener', function() {
-
   beforeEach(function() {
     delete require.cache[require.resolve('./../../lib/stack')]
     delete require.cache[require.resolve('./../../lib/request-listener')]
@@ -114,7 +113,6 @@ describe('#request-listener', function() {
     const res = http.createResponse()
 
     const _route = sinon.spy(function(req, res) {
-      console.log('=======> wwwwwwwwwww')
       expect(req.params.uid).to.be.equal('foo')
       res.status(204).end()
     })

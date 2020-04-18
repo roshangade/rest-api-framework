@@ -1,9 +1,12 @@
 {
   "name": "rest-api-framework",
-  "version": "0.2.0-beta.2",
+  "version": "0.2.0",
   "description": "Framework for building REST API with TypeScript support",
   "main": "api.js",
   "types": "types",
+  "engines": {
+    "node": ">=12.9"
+  },
   "scripts": {
     "test": "nyc --reporter=html mocha",
     "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov",
@@ -31,13 +34,13 @@
   "devDependencies": {
     "@types/node": "^12.x",
     "chai": "^4.x",
-    "dtslint": "^2.x",
+    "dtslint": "^3.x",
     "eslint": "^6.x",
     "eslint-config-google": "^0.14.x",
     "mocha": "^7.x",
     "node-mocks-http": "roshangade/node-mocks-http",
     "nyc": "^15.x",
-    "sinon": "^8.x"
+    "sinon": "^9.x"
   },
   "dependencies": {}
 }
