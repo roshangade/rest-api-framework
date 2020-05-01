@@ -11,7 +11,9 @@
     "test": "nyc --reporter=html mocha",
     "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov",
     "ts-lint": "dtslint types",
-    "lint": "eslint --no-ignore --fix --config .eslintrc.json api.js ./**/*.js"
+    "lint": "eslint --no-ignore --fix --config .eslintrc.json api.js ./**/*.js",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "author": "Roshan Gade <roshangade@hotmail.com>",
   "homepage": "https://github.com/roshangade/rest-api-framework",
@@ -42,5 +44,8 @@
     "nyc": "^15.x",
     "sinon": "^9.x"
   },
-  "dependencies": {}
+  "dependencies": {
+    "snyk": "^1.316.1"
+  },
+  "snyk": true
 }
