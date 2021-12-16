@@ -35,9 +35,9 @@
     "@types/node": "^12.x",
     "chai": "^4.x",
     "dtslint": "^3.x",
-    "eslint": "^6.x",
+    "eslint": "^7.16.0",
     "eslint-config-google": "^0.14.x",
-    "mocha": "^7.x",
+    "mocha": "^9.1.2",
     "node-mocks-http": "roshangade/node-mocks-http",
     "nyc": "^15.x",
     "sinon": "^9.x"
