@@ -37,7 +37,7 @@
     "dtslint": "^3.x",
     "eslint": "^6.x",
     "eslint-config-google": "^0.14.x",
-    "mocha": "^7.x",
+    "mocha": "^10.1.0",
     "node-mocks-http": "roshangade/node-mocks-http",
     "nyc": "^15.x",
     "sinon": "^9.x"
